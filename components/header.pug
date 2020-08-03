@@ -1,0 +1,20 @@
+.header
+  if props.account
+    Menu(mode="horizontal")
+      Menu-Item.menu--dropdown
+        Dropdown(placement="bottomRight" overlayClassName="header--dropdown")
+          a
+            Avatar(src=props.isvInfo.avatar size="small")
+            span= props.account.username
+            Icon(type="down")
+          Dropdown:overlay
+            Menu
+              Menu-Item
+                a(onClick=(() => updateAccount(props.account))) 修改信息
+              Menu-Item
+                a(onClick=(() => updatePassword(props.account))) 修改密码
+              Menu-Item
+                Link(href="/logout"): a 退出
+
+  a(href="/")
+    img.logo(src=props.isvInfo.logo)

@@ -1,0 +1,48 @@
+.ant-notification
+  width 350px
+
+  &-notice
+    padding 10px 12px
+    line-height $line-height
+    border 1px solid rgba($blue, .5)
+    box-shadow $box-shadow
+    background #f6f7fd
+
+    &-message
+      margin-bottom 0
+      font-size $font-size-base !important
+
+    &-description
+      font-size $font-size-sm !important
+      color $text-color-secondary
+
+    &-close
+      right 10px
+      top 10px
+
+      .anticon
+        font-size $font-size-sm
+
+    &-with-icon
+
+      .ant-notification-notice
+        &-message, &-description
+          margin 0
+          padding 0 12px 0 20px
+
+    &-icon
+      margin 4px 0 0
+      line-height 0
+      font-size $font-size-base
+
+      &-success
+        color $lime
+
+      &-info
+        color $blue
+
+      &-warning
+        color $popcorn
+
+      &-error
+        color $red

@@ -1,0 +1,11 @@
+.upload-pictures
+  .upload--txt
+    span
+      Icon(type="paper-clip")
+      | 上传附件
+    | (仅支持 jpg/jpeg/png，小于 3MB)
+
+  Upload.clear-fix(fileList=state.files accept="image/jpeg, image/png" multiple type="drag" listType="picture-card" beforeUpload=beforeUpload onPreview=previewFile onRemove=removeFile showUploadList=(!disabled ? true : hideRemoveIcon) disabled=(state.disabled || state.files.length >= limit))
+    Icon(type="plus")
+    br
+    | 点此或拖拽上传附件

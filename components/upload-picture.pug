@@ -1,0 +1,21 @@
+.upload-picture
+  unless state.file
+    Upload(
+      type="drag"
+      accept=state.accept
+      showUploadList=false
+      beforeUpload=beforeUpload
+    )
+      Icon(type="plus")
+      div 点此或拖拽
+      div 上传附件
+      = props.children
+  else
+    UploadList(
+      items=[ state.file ]
+      listType="picture-card"
+      showPreviewIcon=false
+      showRemoveIcon=true
+      onRemove=removeUpload
+      locale=uploadLocale
+    )

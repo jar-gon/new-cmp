@@ -1,0 +1,83 @@
+.account
+  position relative
+  width 100%
+  min-height 100%
+  background url('../assets/account-bg.jpg') left top no-repeat $white
+
+  &-wrapper
+    position absolute
+    top 20%
+    left 50%
+    margin-left -205px
+    width 410px
+
+  &-logo
+    display block
+    margin 0 auto 40px
+    width 200px
+    @extend .select-none
+
+  &-form
+    width 410px
+    padding 40px 0 40px 40px
+    @extend .box-style
+
+    &-module
+      margin -20px 0 20px
+      width width = 330px
+      line-height 20px
+      font-size $font-size-lg
+      color $module-color
+      text-align center
+
+    .ant-input
+      &-affix-wrapper
+        position relative
+        width 330px
+
+        .ant-input:not(:last-child)
+          padding-right 92px
+
+      &-suffix
+        right 0
+        width 82px
+        font-size $font-size-sm
+        justify-content center
+        cursor pointer
+
+        &:before
+          position absolute
+          left 0
+          top -1px
+          content ''
+          width 1px
+          height 20px
+          background $border-color-split
+
+        &-disabled
+          color $black-25
+          cursor not-allowed
+
+    &-error
+      margin-top -8px
+      font-size $font-size-sm
+      color $red
+
+    .ant-btn
+      margin-top 8px
+      width 330px
+
+    &-links
+      margin-top 20px
+      font-size $font-size-sm
+
+      a + a
+        padding-left 12px
+
+  .nc-container
+    margin 8px 0 12px
+
+.forget-password, .register, .update-password
+
+  .account-wrapper
+    top 12%

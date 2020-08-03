@@ -1,0 +1,8 @@
+Document-Title 首页
+
+SiteLayout
+  ReactEcharts(ref=this.mapEchartRef option=optionsMap)
+  .card-dashboard-maptool
+    Icon(type="zoom-in" title="放大" onClick=(() => changeMapZoom(true)))
+    Icon(type="zoom-out" title="缩小" onClick=(() => changeMapZoom()))
+    Icon(type="redo" title="还原" onClick=resetMapZoom)

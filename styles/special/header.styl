@@ -1,0 +1,53 @@
+.header
+  base-width $width
+
+  .logo
+    max-width 110px
+
+  .ant-menu
+    &-horizontal
+      float right
+      line-height $layout-header-height
+      background transparent
+
+    &-item
+      border none
+      vertical-align top
+
+      &:hover, &-active
+        border none
+
+      a, a:hover
+        color $white
+
+      &.menu--dropdown
+        padding-right 0
+
+        .ant-avatar
+          margin -4px 10px 0 0
+
+        .anticon
+          margin 0 0 0 8px
+
+  &--dropdown
+    top $layout-header-height !important
+
+    .ant-dropdown-menu
+      padding 0
+      border-radius 0 0 $border-radius-base $border-radius-base
+      box-shadow 0 1px 8px 0 $black-20
+
+      &-item
+        padding 9px 20px
+        min-width 150px
+
+        &:hover
+          color $white
+          background $primary-color
+
+          a
+            color $white
+
+        a
+          margin 0
+          padding 0

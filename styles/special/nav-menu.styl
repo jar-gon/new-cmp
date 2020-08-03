@@ -1,0 +1,42 @@
+.nav-menu
+  margin 20px 0
+  height 100px
+  line-height 34px
+  font-size $font-size-sm
+  text-align center
+  @extend .box-style
+  @extend .flex-around
+
+  &-icon
+    display inline-flex
+    width 45px
+    height 45px
+    line-height 45px
+    border-radius 45px
+    @extend .flex-center
+
+  .ant-menu
+    &-item
+      width 80px
+      padding 0
+      border none
+
+      &:hover, &-selected
+        border none
+
+        .nav-menu
+          &-icon
+            color $white !important
+            background $primary-color !important
+            transition color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)
+
+      a
+        color $heading-color
+
+      .anticon
+        margin 0
+        font-size 20px
+
+      &-selected
+        a
+          color $primary-color

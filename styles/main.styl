@@ -1,0 +1,90 @@
+p, ul, ol, dl, dd
+  margin 0
+
+ul, th, td
+  padding 0
+
+table
+  width 100%
+
+.text
+  &-success
+    color $green
+
+  &-info
+    color $blue
+
+  &-warning
+    color $warning-color
+
+  &-error
+    color $error-color
+
+  &-default
+    color $gray
+
+#__next
+  height 100%
+
+:focus
+  outline none
+  text-decoration none
+
+base-width(width)
+  margin 0 auto
+  width width
+
+.line-list
+  font-size 0
+
+  li
+    display inline-block
+    vertical-align top
+
+.box-style
+  border-radius $border-radius-base
+  box-shadow $box-shadow
+
+.hover-style
+  color $link-color
+  cursor pointer
+
+.font-size_10
+  display inline-block
+  font-size $font-size-sm
+  line-height 10px
+  transform scale(.83)
+  -webket-transform scale(.83)
+
+.transform-origin_left
+  transform-origin left
+  -webket-transform-origin left
+
+.text-break
+
+  for $x in (110 164)
+    &_{$x}
+      display inline-block
+      max-width ($x)px
+      vertical-align middle
+      word-break break-all
+
+.flex-between
+  display flex
+  justify-content space-between
+
+.flex-align-center
+  display flex
+  align-items center
+
+.flex-center
+  @extend .flex-align-center
+  justify-content center
+
+.flex-around
+  @extend .flex-align-center
+  justify-content space-around
+
+@import 'antd/*'
+@import 'component/*'
+@import 'special/*'

@@ -1,0 +1,5 @@
+.filter-form
+  SimpleForm(_ref=form states=props.states onSubmit=props.onSubmit layout="inline")
+  .margin-bottom_20
+    Button.secondary-primary(onClick=form.submit) 查询
+    Button(type="default" onClick=resetFields) 清空

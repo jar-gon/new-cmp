@@ -1,0 +1,7 @@
+Menu.nav-menu(mode="horizontal" selectable=false)
+  each menu in menus
+    Menu-Item(key=menu.path disabled=menu.disabled class-ant-menu-item-selected=isCurrentMenu(menu))
+      Link(href=menu.path as=(menu.pathAs || menu.path)): a
+        .nav-menu-icon(style=({color: `rgba(${ menu.color })`, background: `rgba(${ menu.color }, .1)`}))
+          Icon(type=menu.icon)
+        .nav-menu-label= menu.label

@@ -1,0 +1,6 @@
+if state.value !== props.value && props.suffix !== false
+  Tooltip(placement="bottom")
+    span.cursor-pointer.display-inline-block= state.value
+    Tooltip:title= props.value
+else
+  = state.value

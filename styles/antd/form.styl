@@ -1,0 +1,63 @@
+.ant-form
+
+  &-item
+    &-control
+      line-height 32px
+
+      &-wrapper
+        display inline-block
+        vertical-align top
+
+    &-label
+      width 100px
+      line-height 32px
+      text-align left
+      vertical-align top
+
+  label
+    font-size $font-size-sm
+
+    &:before, &:after
+        content ''
+        margin 0
+
+  .ant-form-item-required:after
+    content '*'
+    margin-left 4px
+    color $red
+
+  &-hide-required-mark
+
+    .ant-form
+      &-item
+        &-required:after
+          display none
+
+  &-extra, &-explain
+    @extend .font-size_10
+    display block
+    @extend .transform-origin_left
+
+  &-explain
+    padding 10px 0
+
+  &-vertical
+
+    .ant-form
+      &-item
+        margin-bottom 0
+        padding-bottom 12px
+
+        &-label
+          line-height $line-height
+
+        &-with-help
+          padding-bottom 0
+
+      &-explain
+        margin-bottom -2px
+
+//   &-inline
+
+//     .ant-input, .ant-select
+//       width 205px

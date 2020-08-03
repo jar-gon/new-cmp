@@ -1,0 +1,7 @@
+export const INVALID_TOKEN = '001001001'
+export const RESOURCE_NOT_FOUND = '002001001'
+export const TOKEN_NOT_FOUND = '006001001'
+
+export const RECHARGE_FAILED = '002001000'
+export const REPEAT_PAY = '002001001'
+export const PAY_FAILED = '002001002'

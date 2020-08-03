@@ -1,0 +1,46 @@
+#!/usr/bin/env node
+
+const fs = require('fs')
+const { execSync } = require('child_process')
+
+const dirs = [ 'pages', 'components', 'modals' ].join(' ' )
+
+const modules = {
+  Checkbox: { include: true },
+  DatePicker: { include: true },
+  Form: { name: 'Form(X|Item|Field)|SimpleForm' },
+  InputNumber: { include: true },
+  Modal: { regexp: 'react-utils/modal' },
+  Notification: { include: true },
+  Pagination: { include: true },
+  Radio: { include: true },
+  Select: { include: true },
+  Switch: { include: true },
+  Table: { name: 'SimpleTable' },
+}
+
+function grep(regexp, files = dirs) {
+  return `grep -rlP '${ regexp }' ${ files } 2> /dev/null || true`
+}
+
+const antd = {
+  names: Object.keys(require('antd')).filter(x => /^[A-Z]/.test(x)).concat([ 'Notification' ]),
+  styles: { },
+};
+antd.names.forEach(name => {
+  const module = name[0].toLowerCase() + name.substr(1).replace(/[A-Z]/g, c => `-${ c.toLowerCase() }`);
+  antd.styles[name] = `@import '~antd/es/${ module }/style/index.less';\n`
+});
+
+const styles = antd.names
+  .filter(name => {
+    const module = modules[name] || { }
+    return module.include || [
+      grep(`^[ \\t]*${ !module.name ? name : `(${ name }|${ module.name })` }(-.+)?(#[^#.( ]+)?(\\.[^#.( ]+)?(\\(| |$)`),
+      module.regexp && grep(module.regexp),
+    ].some(x => x && execSync(x, { encoding: 'utf-8' }))
+  })
+  .map(name => antd.styles[name])
+  .join('')
+
+fs.writeFileSync(`styles/antd.less`, styles)
