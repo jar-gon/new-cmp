@@ -1,4 +1,4 @@
-export type CloudProvider = 'aliyun' | 'aws'
+export type CloudProvider = 'aliyun' | 'aws' | 'tencent' | 'huawei' | 'ucloud' | 'azure'
 export type PayType = 'PostPaid' | 'PrePaid'
 
 export enum AuditStatus {
@@ -14,15 +14,13 @@ export enum BindStatus {
   Bound,
 }
 
-export interface SimpleObject {
-  id: string
-  name: string
-  desc: string
-}
-
 export enum EnabledStatus {
   Enabled = 1,
   Disabled,
+}
+
+export interface JsonFormat<T> {
+  json_format: T
 }
 
 export enum NormalStatus {
@@ -30,6 +28,8 @@ export enum NormalStatus {
   Disabled,
 }
 
-export interface JsonFormat<T> {
-  json_format: T
+export interface SimpleObject {
+  id: string
+  name: string
+  desc: string
 }

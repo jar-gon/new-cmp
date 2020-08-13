@@ -1,0 +1,5 @@
+.console-wrapper
+  if state.loading
+    Spin(delay="500" size="large" spinning=!state.error)
+  if state.error
+    Button(type="primary" size="large" onClick=loadConsole) 重新加载

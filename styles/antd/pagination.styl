@@ -1,0 +1,52 @@
+.ant-pagination
+  font-size $font-size-sm
+
+  &-item, &-prev, &-next
+    margin-right 12px
+
+  &-item
+    border-radius $border-radius-sm
+
+    &-link
+      border-radius $border-radius-sm !important
+
+    &-active
+      &:hover, &:focus
+        border-color $primary-color
+
+        ^[-1] a, a
+          color $white
+
+  &-options
+    margin 0 20px 0  0
+
+    &-size-changer.ant-select
+      margin-right 0
+      font-size $font-size-sm
+
+    .ant-select
+      &-selection
+        &--single
+          height $pagination-item-size
+          border-radius $border-radius-sm
+
+        &__rendered
+          margin-right 32px
+          line-height ($pagination-item-size - 1)
+
+      &-arrow
+        margin-top -5px
+        color $text-color
+
+      &-dropdown
+        border-radius $border-radius-sm
+
+        &-menu-item
+          padding 3px 12px
+          text-align left
+
+          &:first-child
+            border-radius $border-radius-sm $border-radius-sm 0 0
+
+          &:last-child
+            border-radius 0 0 $border-radius-sm $border-radius-sm

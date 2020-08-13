@@ -11,7 +11,6 @@
     display inline-flex
     width 45px
     height 45px
-    line-height 45px
     border-radius 45px
     @extend .flex-center
 
@@ -24,11 +23,10 @@
       &:hover, &-selected
         border none
 
-        .nav-menu
-          &-icon
-            color $white !important
-            background $primary-color !important
-            transition color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)
+        &:not(.ant-menu-item-disabled) .nav-menu-icon
+          color $white !important
+          background $primary-color !important
+          transition color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)
 
       a
         color $heading-color
@@ -40,3 +38,8 @@
       &-selected
         a
           color $primary-color
+
+      &-disabled
+        .nav-menu-icon
+          color $disabled-color !important
+          background $black-10 !important

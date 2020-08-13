@@ -1,0 +1,33 @@
+.cloud
+  &--buttons
+
+    .ant-btn
+      width 145px
+      height 60px
+      font-size $font-size-sm
+      text-align left
+      box-shadow $box-shadow
+
+      & + .ant-btn
+        margin-left 18px
+
+      &:hover, &:focus
+        color $primary-color
+        border-color $primary-color
+
+      &[disabled]
+        color #d1d1d1
+        border-color #e1e1e1
+        background transparent
+
+        &:hover, &:focus
+          box-shadow $box-shadow
+
+    img
+      margin 0 8px 0 4px
+      max-width 32px
+      max-height 32px
+
+  &--icon
+    max-width 28px
+    max-height 16px

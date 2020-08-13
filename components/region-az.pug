@@ -1,0 +1,33 @@
+if state.regionLength
+  Popover
+    span.hover-style
+      span.padding-right_4= state.regionLength
+      | 个
+    Popover:content
+      .region-az
+        if state.asiaPacificRegion.length
+          dl
+            dt 亚太
+            each region in state.asiaPacificRegion
+              dd(key=region.regionId)
+                Link(href=`/instance?cloud=${ props.endpoint.cloud }&endpointId=${ props.endpoint.id }&regionId=${ region.regionId }`): a
+                  img(src=FLAG[region.countryName] alt=region.countryName)
+                  = region.regionName
+        if state.europeAndAmericaRegion.length
+          dl
+            dt 欧洲与美洲
+            each region in state.asiaPacificRegion
+              dd(key=region.regionId)
+                Link(href=`/instance?cloud=${ props.endpoint.cloud }&endpointId=${ props.endpoint.id }&regionId=${ region.regionId }`): a
+                  img(src=FLAG[region.countryName] alt=region.countryName)
+                  = region.regionName
+        if state.middleEastAndIndiaRegion.length
+          dl
+            dt 中东与印度
+            each region in state.asiaPacificRegion
+              dd(key=region.regionId)
+                Link(href=`/instance?cloud=${ props.endpoint.cloud }&endpointId=${ props.endpoint.id }&regionId=${ region.regionId }`): a
+                  img(src=FLAG[region.countryName] alt=region.countryName)
+                  = region.regionName
+else
+  = state.regionLength

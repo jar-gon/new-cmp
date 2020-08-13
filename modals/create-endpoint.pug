@@ -1,0 +1,13 @@
+if props.account.max_count > props.account.cur_count
+  SimpleForm(_ref=form states=states hideRequiredMark onSubmit=onSubmit)
+else
+  Alert(type="warning" showIcon)
+    Alert:message
+      div
+        p 您当前的自有账号纳管上限：#{ props.account.max_count }个
+        p CMPlite是免费使用的多云管理平台。每个用户可以免费纳管#{ props.account.max_count }个云账号。
+          br
+          | 您可以通过邀请其他用户注册CMPlite并绑定自己的云账号，来提升您的自有账号纳管上限。
+          br
+          | 每成功邀请⼀名用户绑定云账号，可以让您额外纳管#{ props.account.max_count }个自有账号。
+        p 如有疑问，请通过以下邮箱联系我们：marketing@yunq.cn

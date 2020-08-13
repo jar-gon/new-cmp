@@ -3,11 +3,13 @@ export interface Account {
   username: string
   mobile: string
   email: string
+  reset: boolean
   role: AccountRole
+  cur_count: number
+  max_count: number
 }
 
 export enum AccountRole {
-  SuperAdmin = 1,
   Admin = 2,
   User = 3,
   Member = 4,
