@@ -18,3 +18,9 @@ export function arrayToDictionary(array: any[], key = 'id'): Dictionary {
 export function removeIndex(array: any[], index: number): any[] {
   return array.filter((_, i) => i !== index)
 }
+
+export function extractKeyToArray(array: any[], key: string): any[] {
+  const arr: any[] = []
+  array.map(x => arr.push(x[key]))
+  return arr
+}

@@ -1,0 +1,15 @@
+SiteLayout
+  .yq-submenu
+    Radio-Group(value=state.index onChange=menuChange)
+      each x, i in ORGANIZATION_MENUS.menus
+        Radio-Button(key=i value=i)= x.label
+
+  case state.index
+    when 0
+      CostcenterList
+    when 1
+      ResourceGroupList
+    when 2
+      MemberList
+    when 3
+      RelationList
