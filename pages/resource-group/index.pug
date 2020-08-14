@@ -1,0 +1,48 @@
+Document-Title 资源组管理 - 组织管理
+
+Card.card-common(title="资源组列表")
+  Button.margin-bottom_10(type="primary" onClick=createResourceGroup) 添加资源组
+  .table-list
+    TableX(rowKey="id")
+      Table-Column(title="资源组ID" dataIndex="id")
+        Table-Column:render(as=value)
+          ShortName-Id(value=value)
+      Table-Column(title="资源组名" dataIndex="name")
+      Table-Column(title="描述" dataIndex="desc")
+      //- Table-Column(title="账号别名" dataIndex="endpoint_name")
+        Table-Column:render(as=(value, resourceGroup))
+          ConvertCloudIcon.margin-right_4(cloud=resourceGroup.cloud)
+          = value
+      Table-Column(title="成本中心数" dataIndex="projects")
+        Table-Column:render(as=value)
+          if !value.length
+            | 暂无成本中心
+          else
+            Popover(overlayClassName="popover-details" placement="right")
+              span.hover-style= value.length
+              Popover:content
+                dl
+                  dt 成本中心列表
+                  each val, index in value
+                    dd(key=index)
+                      span 成本中心#{ index + 1 }
+                      = val.name
+      Table-Column(title="成员数" dataIndex="members")
+        Table-Column:render(as=value)
+          if !value.length
+            | 暂无成员
+          else
+            Popover(overlayClassName="popover-details" placement="right")
+              span.hover-style= value.length
+              Popover:content
+                dl
+                  dt 成员列表
+                  each val, index in value
+                    dd(key=index)
+                      span 成员#{ index + 1 }
+                      = val.name
+      Table-Column(title="创建时间" dataIndex="created_at")
+        Table-Column:render(as=value)= formatDate(value)
+      Table-Column(title="操作" key="action")
+        Table-Column:render(as=(value, resourceGroup))
+          Button(size="small" onClick=(() => relate(resourceGroup))) 关联成员

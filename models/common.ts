@@ -14,6 +14,11 @@ export enum BindStatus {
   Bound,
 }
 
+export interface CreateSimpleObject {
+  name: string
+  desc?: string
+}
+
 export enum EnabledStatus {
   Enabled = 1,
   Disabled,

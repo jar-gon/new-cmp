@@ -7,12 +7,25 @@ import { store } from '~/utils/redux'
 
 import { Account } from '~/models/account'
 import { CloudProvider } from '~/models/common'
+import { Costcenter } from '~/models/costcenter'
 import { Endpoint } from '~/models/endpoint'
+import { Member } from '~/models/member'
+import { RelationType } from '~/models/relation'
+import { ResourceGroup } from '~/models/resource-group'
 
+import CreateCostcenter from './create-costcenter'
 import CreateEndpoint from './create-endpoint'
+import CreateMember from './create-member'
+import CreateResourceGroup from './create-resource-group'
+import DeleteCostcenter from './delete-costcenter'
 import DeleteEndpoint from './delete-endpoint'
+import DeleteMember from './delete-member'
+import RelateMember from './relate-member'
+import RelateResourceGroup from './relate-resource-group'
+import ResetMemberPassword from './reset-member-password'
 import UpdateAccount from './update-account'
 import UpdateAccountPassword from './update-account-password'
+import UpdateMember from './update-member'
 
 function createModal<T>(props: ModalProps) {
   const Component = props.content as NextComponentType<NextPageContext, { }, { modal: Modal }>
@@ -28,6 +41,14 @@ function createModal<T>(props: ModalProps) {
   return modal
 }
 
+export function createCostcenter(props?: ModalProps) {
+  return createModal<void>({
+    title: '添加成本中心',
+    content: CreateCostcenter,
+    ...props,
+  })
+}
+
 export function createEndpoint(cloud: CloudProvider, props?: ModalProps) {
   const cloudVendor: CloudVendor = getCloudVendor(cloud)
   return createModal<void>({
@@ -40,12 +61,84 @@ export function createEndpoint(cloud: CloudProvider, props?: ModalProps) {
   })
 }
 
+export function createMember(props?: ModalProps) {
+  return createModal<void>({
+    title: '添加成员',
+    content: CreateMember,
+    ...props,
+  })
+}
+
+export function createResourceGroup(props?: ModalProps) {
+  return createModal<void>({
+    title: '添加资源组',
+    content: CreateResourceGroup,
+    ...props,
+  })
+}
+
+export function deleteCostcenter(costcenter: Costcenter, props?: ModalProps) {
+  return createModal<void>({
+    title: '删除成本中心',
+    content: DeleteCostcenter,
+    componentProps: {
+      costcenter,
+    },
+    ...props,
+  })
+}
+
 export function deleteEndpoint(endpoint: Endpoint, props?: ModalProps) {
   return createModal<void>({
     title: '删除账号',
     content: DeleteEndpoint,
     componentProps: {
       endpoint,
+    },
+    ...props,
+  })
+}
+
+export function deleteMember(member: Member, props?: ModalProps) {
+  return createModal<void>({
+    title: '删除成员',
+    content: DeleteMember,
+    componentProps: {
+      member,
+    },
+    ...props,
+  })
+}
+
+export function relateMember(resourceGroup: ResourceGroup, props?: ModalProps) {
+  return createModal<void>({
+    title: '关联成员',
+    content: RelateMember,
+    componentProps: {
+      resourceGroup,
+    },
+    ...props,
+  })
+}
+
+export function relateResourceGroup(type: RelationType, relation: Costcenter | Member, props?: ModalProps) {
+  return createModal<void>({
+    title: '关联资源组',
+    content: RelateResourceGroup,
+    componentProps: {
+      type,
+      relation,
+    },
+    ...props,
+  })
+}
+
+export function resetMemberPassword(member: Member, props?: ModalProps) {
+  return createModal<void>({
+    title: '重置成员密码',
+    content: ResetMemberPassword,
+    componentProps: {
+      member,
     },
     ...props,
   })
@@ -68,6 +161,17 @@ export function updateAccountPassword(account: Account, props?: ModalProps) {
     content: UpdateAccountPassword,
     componentProps: {
       account,
+    },
+    ...props,
+  })
+}
+
+export function updateMember(member: Member, props?: ModalProps) {
+  return createModal<void>({
+    title: '修改成员信息',
+    content: UpdateMember,
+    componentProps: {
+      member,
     },
     ...props,
   })

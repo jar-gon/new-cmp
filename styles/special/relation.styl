@@ -1,0 +1,65 @@
+.relation
+  &-summary
+    margin-bottom 20px
+    @extend .flex-between
+
+    &-item
+      padding 20px
+      width 320px
+      height 100px
+      @extend .box-style
+      background-position right 20px center
+      background-color $component-background
+      background-repeat no-repeat
+      background-size 60px 60px
+
+      &-costcenter
+        background-image url(../assets/costcenter.png)
+
+      &-resource
+        background-image url(../assets/resource-group.png)
+
+      &-member
+        background-image url(../assets/member.png)
+
+      &-num
+        line-height 32px
+        font-size 24px
+
+      &-txt
+        padding-top 2px
+        color $heading-color
+
+  &-table
+
+    .ant-table
+      line-height 39px
+      border-top 1px solid $border-color-split
+      border-left 1px solid $border-color-split
+
+      th, td
+        padding 0
+        text-align center
+        border-right 1px solid $border-color-split
+
+      tr
+        &:nth-child(2n) td
+          background $background-color-light
+
+        td:last-child
+          text-align left
+
+      &-thead
+        th
+          background $background-color-light
+
+      &-tbody
+        tr:last-child td
+            border-width 1px
+
+    &-item
+      padding 0 20px
+      border-bottom 1px solid $border-color-split
+
+      &:last-child
+        border-width 0

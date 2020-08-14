@@ -1,0 +1,46 @@
+Document-Title 成员管理 - 组织管理
+
+Card.card-common(title="成员列表")
+  FilterForm(states=states onSubmit=onFilter)
+  Button.margin-bottom_10(type="primary" onClick=createMember) 添加成员
+  .table-list
+    TableX(rowKey="id")
+      Table-Column(title="用户ID" dataIndex="id")
+        Table-Column:render(as=value)
+          ShortName-Id(value=value)
+      Table-Column(title="用户名" dataIndex="username")
+      Table-Column(title="手机" dataIndex="mobile")
+      Table-Column(title="邮箱" dataIndex="email")
+      Table-Column(title="资源组数" dataIndex="projects")
+        Table-Column:render(as=value)
+          if !value.length
+            | 暂无资源组
+          else
+            Popover(overlayClassName="popover-details" placement="right")
+              span.hover-style= value.length
+              Popover:content
+                dl
+                  dt 资源组列表
+                  each val, index in value
+                    dd(key=index)
+                      span 资源组#{ index + 1 }
+                      = val.name
+      Table-Column(title="状态" dataIndex="status")
+        Table-Column:render(as=value)
+          ConvertNormalStatus(status=value)
+      Table-Column(title="创建时间" dataIndex="login_at")
+        Table-Column:render(as=value)= formatDate(value)
+      Table-Column(title="最近登录时间" dataIndex="created_at")
+        Table-Column:render(as=value)= formatDate(value)
+      Table-Column(title="操作" key="action")
+        Table-Column:render(as=(value, member))
+          Fragment
+            Button(size="small" onClick=(() => relate(member))) 关联资源组
+            Button(size="small" onClick=(() => resetPassword(member))) 重置密码
+            Dropdown
+              Button(size="small") 更多
+                Icon(type="down")
+              Dropdown:overlay
+                Menu
+                  Menu-Item(onClick=(() => update(member))) 修改信息
+                  Menu-Item(onClick=(() => deleteMember(member))) 删除

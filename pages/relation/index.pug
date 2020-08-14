@@ -1,0 +1,28 @@
+Document-Title 关联展示 - 组织管理
+
+.relation-summary
+  .relation-summary-item.relation-summary-item-costcenter
+    .relation-summary-item-num.text-primary= _get(state.relationSummary.project_count)
+    .relation-summary-item-txt 成本中心数量
+  .relation-summary-item.relation-summary-item-resource
+    .relation-summary-item-num.text-success= _get(state.relationSummary.rg_count)
+    .relation-summary-item-txt 资源组数量
+  .relation-summary-item.relation-summary-item-member
+    .relation-summary-item-num.text-orange= _get(state.relationSummary.user_count)
+    .relation-summary-item-txt 成员数量
+
+Card.card-common(title="关联展示列表")
+  .table-list.relation-table
+    TableX(rowKey="id")
+      Table-Column(title="成本中心" dataIndex="name")
+      Table-Column(title="资源组" dataIndex="rg_list")
+        Table-Column:render(as=value)
+          each val in value
+            .relation-table-item(key=val.id)= val.name
+      Table-Column(title="成员" key="members")
+        Table-Column:render(as=(value, relation))
+          each resourceGroup in relation.rg_list
+            .relation-table-item(key=resourceGroup.id)
+              each member in resourceGroup.users_list
+                Tag(color="orange" key=member.id)
+                  Font10= member.name

@@ -1,0 +1,18 @@
+.yq-submenu
+  margin-bottom 20px
+  text-align center
+
+  .ant-radio
+    &-group
+      color $text-color-secondary
+      box-shadow $box-shadow
+
+    &-button-wrapper
+      min-width 110px
+      border-color #f2f2f2
+
+      &:not(:first-child)::before
+        background-color #f2f2f2
+
+      &-checked:not(.ant-radio-button-wrapper-disabled)
+        border-color $primary-color

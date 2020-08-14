@@ -1,0 +1,32 @@
+Document-Title 成本中心管理 - 组织管理
+
+Card.card-common(title="成本中心列表")
+  Button.margin-bottom_10(type="primary" onClick=createCostcenter) 添加成本中心
+  .table-list
+    TableX(rowKey="id")
+      Table-Column(title="成本中心ID" dataIndex="id")
+        Table-Column:render(as=value)
+          ShortName-Id(value=value)
+      Table-Column(title="成本中心名" dataIndex="name")
+      Table-Column(title="描述" dataIndex="desc")
+      Table-Column(title="资源组数" dataIndex="list")
+        Table-Column:render(as=value)
+          if !value.length
+            | 暂无资源组
+          else
+            Popover(overlayClassName="popover-details" placement="right")
+              span.hover-style= value.length
+              Popover:content
+                dl
+                  dt 资源组列表
+                  each val, index in value
+                    dd(key=index)
+                      span 资源组#{ index + 1 }
+                      = val.name
+      Table-Column(title="创建时间" dataIndex="created_at")
+        Table-Column:render(as=value)= formatDate(value)
+      Table-Column(title="操作" key="action")
+        Table-Column:render(as=(value, costcenter))
+          Fragment
+            Button(size="small" onClick=(() => relate(costcenter))) 关联资源组
+            Button(size="small" onClick=(() => deleteCostcenter(costcenter))) 删除
