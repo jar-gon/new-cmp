@@ -1,0 +1,19 @@
+Document-Title 充值记录 - 财务管理
+
+Card.card-common(title="充值列表")
+  FilterForm(states=states onSubmit=onFilter)
+  .table-list
+    TableX(rowKey="id")
+      Table-Column(title="类别" dataIndex="order_type")
+        Table-Column:render(as=value)
+          ConvertTradeType(type=value)
+      Table-Column(title="日期" dataIndex="create_time")
+        Table-Column:render(as=value)= formatDate(value)
+      Table-Column(title="交易金额" dataIndex="amount")
+        Table-Column:render(as=(value, trade))
+          ConvertTradeAmount(type=trade.order_type money=value)
+      Table-Column(title="账户余额" dataIndex="balance")
+        Table-Column:render(as=value) ￥#{ formatCurrency(value) }
+      Table-Column(title="账户余额" dataIndex="comment")
+        Table-Column:render(as=value)
+          ShortName(value=value max=24)

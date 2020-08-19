@@ -14,17 +14,25 @@ export interface ExtraProps {
   $checked?: boolean
 }
 
+const currencyFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'CNY',
+  currencyDisplay: 'code',
+})
+
 export function getNumberParser(defaultNumber: number = 0): (value: string) => number {
   return (value: string) => {
     return parseInt(value, 10) || defaultNumber
   }
 }
 
-const currencyFormatter = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'CNY',
-  currencyDisplay: 'code',
-})
+export function bankFormat(value: string): string {
+  return value ? value.split('').reverse().join('').replace(/(\d{4})/g, '$1 ')
+    .replace(/\s$/, '')
+    .split('')
+    .reverse()
+    .join('') : '-'
+}
 
 export function formatDate(date: Date | string): string {
   return format(date instanceof Date ? date : new Date(date), 'yyyy-MM-dd HH:mm:ss')

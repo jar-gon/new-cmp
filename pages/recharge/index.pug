@@ -1,0 +1,56 @@
+Document-Title 账户充值 - 财务中心
+
+.balance
+  .balance-content
+    .balance-content-title 余额
+    span.balance-content-balance ¥
+      span= formatCurrency(_get(state.balance.total_balance) || 0)
+    span.balance-content-alarm 可用额度预警：#{ formatCurrency(_get(state.balance.quota) || 0) }
+      a.padding-left_12(onClick=balanceThreshold) 设置
+
+.recharge-wrap
+  Card.card-common.recharge(title="线上充值")
+    .recharge-title 设置金额
+    Radio-Group.yq-radio-group(value=state.selectedAmount onChange=selectAmount)
+      each amount in amounts
+        Radio-Button(key=amount value=amount) #{ amount }元
+    .recharge-input-number
+      InputNumber(
+        value=state.inputedAmount onFocus=setAmountType onChange=changeAmount
+        min=inputNumberMin step=100 max=1000000 parser=getNumberParser(2000)
+        class-input-number--selected=(state.amountType === 'input')
+      )
+      span.recharge-unit 元
+    .recharge-title 在线支付
+    .recharge-list
+      Radio-Group.yq-radio-group.yq-radio-group-img(value=state.selectedGateway onChange=selectGateway)
+        each gateway in state.gateways
+          Radio-Button(key=gateway.id value=gateway)
+            ConvertPayGetwary(type=gateway.type)
+    Button(size="large" type="primary" onClick=doRecharge loading=state.loading disabled=state.loading) 使用#{ _get(state.selectedGateway.name) }充值 #{ state.amountValue } 元
+
+  Card.card-common.recharge(title="线下汇款")
+    Spin(spinning=!state.banks)
+      if state.noBanks
+        nz-alert(nzMessage="管理员无法设置线下汇款银行。" nzShowIcon)
+      else
+        if state.banks
+          .recharge-title 开户名称
+          .recharge-value #{ state.banks.company_name }
+          .recharge-title 开户银行
+          .recharge-bank
+            Radio-Group.yq-radio-group.yq-radio-group-img
+              Radio-Button
+                img(src=state.banks.logo_url alt=state.banks.logo_name)
+              span.recharge-bank-value #{ state.banks.bank_name }
+          .recharge-tag 专属汇款账号：#{ bankFormat(state.banks.bank_num) }
+
+Template(ref=this.qrcodeModal)
+  .modal-qrcode-title #{ _get(state.selectedGateway.name) }支付
+  .modal-qrcode-text 扫码支付#{ state.amountValue }元
+  Spin(spinning=!state.payUrl)
+    .modal-qrcode-wrapper
+      if state.payUrl
+        QRCode(value=state.payUrl size=150)
+      if state.refreshTime
+        Font10 #{ state.refreshTime }s 后自动刷新二维码
