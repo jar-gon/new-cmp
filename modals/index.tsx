@@ -6,20 +6,25 @@ import { CloudVendor, getCloudVendor } from '~/utils/cloud'
 import { store } from '~/utils/redux'
 
 import { Account } from '~/models/account'
+import { Bill } from '~/models/bill'
 import { CloudProvider } from '~/models/common'
 import { Costcenter } from '~/models/costcenter'
 import { Endpoint } from '~/models/endpoint'
+import { Invoice } from '~/models/invoice'
 import { Member } from '~/models/member'
 import { RelationType } from '~/models/relation'
 import { ResourceGroup } from '~/models/resource-group'
 
+import BalanceThreshold from './balance-threshold'
 import CreateCostcenter from './create-costcenter'
 import CreateEndpoint from './create-endpoint'
 import CreateMember from './create-member'
 import CreateResourceGroup from './create-resource-group'
 import DeleteCostcenter from './delete-costcenter'
 import DeleteEndpoint from './delete-endpoint'
+import DeleteInvoice from './delete-invoice'
 import DeleteMember from './delete-member'
+import OpenInvoice from './open-invoice'
 import RelateMember from './relate-member'
 import RelateResourceGroup from './relate-resource-group'
 import ResetMemberPassword from './reset-member-password'
@@ -39,6 +44,17 @@ function createModal<T>(props: ModalProps) {
   )
   modal.open()
   return modal
+}
+
+export function balanceThreshold(quota: number, props?: ModalProps) {
+  return createModal<void>({
+    title: '余额阈值',
+    content: BalanceThreshold,
+    componentProps: {
+      quota,
+    },
+    ...props,
+  })
 }
 
 export function createCostcenter(props?: ModalProps) {
@@ -99,12 +115,34 @@ export function deleteEndpoint(endpoint: Endpoint, props?: ModalProps) {
   })
 }
 
+export function deleteInvoice(invoice: Invoice, props?: ModalProps) {
+  return createModal<void>({
+    title: '删除发票',
+    content: DeleteInvoice,
+    componentProps: {
+      invoice,
+    },
+    ...props,
+  })
+}
+
 export function deleteMember(member: Member, props?: ModalProps) {
   return createModal<void>({
     title: '删除成员',
     content: DeleteMember,
     componentProps: {
       member,
+    },
+    ...props,
+  })
+}
+
+export function openInvoice(bill: Bill, props?: ModalProps) {
+  return createModal<void>({
+    title: '开具发票',
+    content: OpenInvoice,
+    componentProps: {
+      bill,
     },
     ...props,
   })

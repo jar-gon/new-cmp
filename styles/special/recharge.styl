@@ -1,0 +1,84 @@
+.balance
+  display flex
+  margin-bottom 20px
+  padding 20px
+  min-height 158px
+  box-shadow $box-shadow
+  background url(../assets/balance-bg.png) right 72px center no-repeat #fff
+  background-size 428px 158px
+
+  &-content
+    margin-right 65px
+    min-width 290px
+    border-right 1px solid $border-color-split
+
+    &:last-child
+      border-width 0
+
+    &-title
+      margin-bottom 35px
+      line-height 22px
+      font-size 18px
+      color $heading-color
+
+    &-balance
+      span
+        padding 0 20px 0 5px
+        font-size 28px
+        color $primary-color
+
+    &-alarm
+      padding-left 12px
+      font-size $font-size-sm
+
+    &-btn
+      font-size $font-size-sm
+      vertical-align text-bottom
+
+.recharge
+  &-wrap
+    display flex
+    justify-content space-between
+
+    .card-common
+      width 490px
+
+  &-title
+    padding-bottom 10px
+    font-size $font-size-sm
+    color $heading-color
+
+  .yq-radio-group
+
+    .ant-radio-button-wrapper
+      margin-bottom 20px
+      font-size $font-size-base
+
+  &-input-number
+    margin -52px 0 20px 256px
+
+    .ant-input-number
+      width 108px
+
+    .recharge-unit
+      padding-left 10px
+      font-size $font-size-sm
+
+  .ant-btn
+    width 280px
+
+  &-value
+    padding-bottom 28px
+    font-size $font-size-sm
+
+  &-bank
+    &-value
+      line-height 50px
+      font-size $font-size-sm
+
+  &-tag
+    display inline-block
+    padding 0 16px
+    line-height 32px
+    border-radius $border-radius-base
+    background-color #f5f5f5

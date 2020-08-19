@@ -29,6 +29,7 @@
     "pino": "5.13.5",
     "pino-pretty": "3.3.0",
     "pug-as-jsx-utils": "1.0.36",
+    "qrcode.react": "^1.0.0",
     "qs": "6.9.1",
     "react": "16.10.1",
     "react-dom": "16.10.1",

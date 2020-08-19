@@ -1,0 +1,50 @@
+Document-Title 账单管理 - 财务管理
+
+Card.card-common(title="账单列表")
+  .table-list
+    TableX(rowKey="id")
+      Table-Column(title="账期" dataIndex="name")
+        Table-Column:render(as=(value, bill))
+          if bill.bill_amount
+            a= bill.name
+          else
+            = bill.name
+      Table-Column(title="消费金额" dataIndex="bill_amount")
+        Table-Column:render(as=value) ￥#{ formatCurrency(value) }
+      Table-Column(title="状态" dataIndex="status")
+        Table-Column:render(as=value)
+          ConvertBillStatus(status=value)
+      Table-Column(title="发票抬头" dataIndex="invoice_title")
+        Table-Column:render(as=value)
+          if value
+            = value
+          else
+            | -
+      Table-Column(title="收件人" dataIndex="receiver")
+        Table-Column:render(as=value)
+          if value
+            = value
+          else
+            | -
+      Table-Column(title="发票类型" dataIndex="invoice_type")
+        Table-Column:render(as=value)
+          if value
+            ConvertInvoiceType(type=value)
+          else
+            | -
+      Table-Column(title="描述" dataIndex="description")
+        Table-Column:render(as=value)
+          ShortName(name=value)
+      Table-Column(title="开票时间" dataIndex="created_at")
+        Table-Column:render(as=value)
+          if value
+            = formatDate(value)
+          else
+            | -
+      Table-Column(title="操作" key="action")
+        Table-Column:render(as=(value, bill))
+          if bill.bill_amount
+            Fragment
+              Button(size="small") 详情
+              if (bill.status == 'Unissue' && !bill.current_month)
+                Button(size="small" onClick=(() => openInvoice(bill))) 开票

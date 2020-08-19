@@ -1,0 +1,22 @@
+Document-Title 订单管理 - 财务管理
+
+Card.card-common(title="订单列表")
+  FilterForm(states=states onSubmit=onFilter)
+  .table-list
+    TableX(rowKey="id")
+      Table-Column(title="订单号" dataIndex="order_id")
+      Table-Column(title="产品名称" dataIndex="subscription_type")
+        Table-Column:render(as=(value, order))
+          Fragment
+            | #{ order.product_code } #{ order.product_type }
+            ConvertSubscriptionType(type=value)
+      Table-Column(title="原价" dataIndex="pretax_gross_amount")
+        Table-Column:render(as=value) ￥#{ formatCurrency(value) }
+      Table-Column(title="交易金额" dataIndex="amount")
+        Table-Column:render(as=value) ￥#{ formatCurrency(value) }
+      Table-Column(title="折扣" dataIndex="discount")
+      Table-Column(title="折扣类型" dataIndex="discount_type")
+        Table-Column:render(as=value)
+          ConvertDiscountType(type=value)
+      Table-Column(title="创建日期" dataIndex="create_time")
+        Table-Column:render(as=value)= formatDate(value)

@@ -1,0 +1,17 @@
+SiteLayout
+  .yq-submenu
+    Radio-Group(value=state.index onChange=menuChange)
+      each x, i in FINANCE_MENUS.menus
+        Radio-Button(key=i value=i)= x.label
+
+  case state.index
+    when 0
+      Recharge
+    when 1
+      TradeList
+    when 2
+      OrderList
+    when 3
+      InvoiceList
+    when 4
+      BillList

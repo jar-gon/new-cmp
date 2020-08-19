@@ -1,0 +1,68 @@
+Document-Title 发票管理 - 财务管理
+
+Card.card-common(title="发票列表")
+  Button.margin-bottom_10(type="primary" onClick=createInvoice) 添加发票
+  .table-list
+    TableX(rowKey="id")
+      Table-Column(title="发票抬头" dataIndex="invoice_title")
+      Table-Column(title="发票类型" dataIndex="invoice_type")
+        Table-Column:render(as=value)
+          ConvertInvoiceType(type=value)
+      Table-Column(title="纳税人识别码" dataIndex="tax_number")
+      Table-Column(title="收件人" dataIndex="receiver")
+      Table-Column(title="状态" dataIndex="status")
+        Table-Column:render(as=(value, invoice))
+          if invoice.invoice_type == 'general'
+            | 可使用
+          else
+            ConvertAuditStatus(status=invoice.status desc=invoice.description)
+      Table-Column(title="操作" key="action")
+        Table-Column:render(as=(value, invoice))
+          Fragment
+            Popover(overlayClassName="popover-details" placement="leftTop")
+              Button(size="small") 详情
+              Popover:content
+                Fragment
+                  dl
+                    dt 发票信息
+                    dd
+                      span 发票类型
+                      span
+                        ConvertInvoiceType(type=invoice.invoice_type)
+                    dd
+                      span 单位名称
+                      span= invoice.invoice_title
+                    dd
+                      span 纳税人识别码
+                      span= invoice.tax_number
+                    if invoice.invoice_type == 'vat'
+                      dd
+                        span 注册地址
+                        span= invoice.registered_address
+                      dd
+                        span 注册电话
+                        span= invoice.registered_phone
+                      dd
+                        span 开户银行
+                        span= invoice.open_bank
+                      dd
+                        span 银行账户
+                        span= invoice.bank_account
+                  dl
+                    dt 收件信息
+                    dd
+                      span 收件人姓名
+                      span= invoice.receiver
+                    dd
+                      span 联系电话
+                      span= invoice.phone
+                    dd
+                      span 所在省市
+                      span= invoice.province
+                    dd
+                      span 详细地址
+                      span= invoice.address
+            Button(size="small" onClick=(() => update(invoice))) 修改
+            Button(size="small" onClick=(() => deleteInvoice(invoice))) 删除
+            if invoice.imageurl
+              Button(size="small"): a(href=invoice.imageurl target="_blank") 认定书

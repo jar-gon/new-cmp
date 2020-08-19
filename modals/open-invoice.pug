@@ -1,0 +1,17 @@
+SimpleForm(_ref=form states=states hideRequiredMark onSubmit=onSubmit)
+
+Template(ref=this.totalTpl)
+  span.invoice-info ￥#{ formatCurrency(props.bill.bill_amount) }
+
+Template(ref=this.invoiceListTpl)
+  if state.invoices
+    Select(placeholder="请选择发票" value=state.selectInvoiceId onChange=getInvoiceInfo)
+      each invoice in state.invoices
+        Select-Option(key=invoice.id value=invoice.id)= invoice.invoice_title
+    if !state.invoices.length
+      a.margin-left_12(onClick=CreateInvoice) 创建发票
+
+Template(ref=this.invoiceInfoTpl)
+  if state.invoiceInfo
+    .invoice-receiver #{ state.invoiceInfo.receiver } #{ state.invoiceInfo.phone }
+      div #{ state.invoiceInfo.province } #{ state.invoiceInfo.address }
