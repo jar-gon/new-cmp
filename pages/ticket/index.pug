@@ -1,0 +1,26 @@
+Document-Title 工单中心
+
+SiteLayout
+
+  Card.card-common(title="工单列表")
+    FilterForm(states=states onSubmit=onFilter)
+    Button.margin-bottom_10(type="primary" onClick=createTicket) 提交工单
+    .table-list
+      TableX(rowKey="id")
+        Table-Column(title="工单ID" dataIndex="id")
+          Table-Column:render(as=value)
+            ShortName-Id(value=value)
+        Table-Column(title="问题分类" dataIndex="subquestion")
+        Table-Column(title="问题描述" dataIndex="desc")
+          Table-Column:render(as=value)
+            ShortName(value=value)
+        Table-Column(title="创建时间" dataIndex="created_at")
+          Table-Column:render(as=value)= formatDate(value)
+        Table-Column(title="最后回复时间" dataIndex="last_update")
+          Table-Column:render(as=value)= formatDate(value)
+        Table-Column(title="状态" dataIndex="status")
+          Table-Column:render(as=value)
+            ConvertTicketStatus(status=value)
+        Table-Column(title="操作" key="action")
+          Table-Column:render(as=(value, ticket))
+            Button(size="small") 详情
