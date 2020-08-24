@@ -1,0 +1,5 @@
+span.click-copy(onMouseEnter=mouseenter)
+  = props.children
+  CopyToClipboard(text=props.content onCopy=copy)
+    Tooltip(title=state.isCopied ? '已复制' : '复制到剪贴板' placement="right")
+      Icon(type="copy")

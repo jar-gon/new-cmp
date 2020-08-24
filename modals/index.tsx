@@ -10,12 +10,14 @@ import { Bill } from '~/models/bill'
 import { CloudProvider } from '~/models/common'
 import { Costcenter } from '~/models/costcenter'
 import { Endpoint } from '~/models/endpoint'
+import { Instance, PowerAction } from '~/models/instance'
 import { Invoice } from '~/models/invoice'
 import { Member } from '~/models/member'
 import { RelationType } from '~/models/relation'
 import { ResourceGroup } from '~/models/resource-group'
 
 import BalanceThreshold from './balance-threshold'
+import ChangeInstancePower from './change-instance-power'
 import CompleteTicket from './complete-ticket'
 import CreateCostcenter from './create-costcenter'
 import CreateEndpoint from './create-endpoint'
@@ -28,6 +30,7 @@ import DeleteMember from './delete-member'
 import OpenInvoice from './open-invoice'
 import RelateMember from './relate-member'
 import RelateResourceGroup from './relate-resource-group'
+import ResetInstancePassword from './reset-instance-password'
 import ResetMemberPassword from './reset-member-password'
 import UpdateAccount from './update-account'
 import UpdateAccountPassword from './update-account-password'
@@ -54,6 +57,21 @@ export function balanceThreshold(quota: number, props?: ModalProps) {
     content: BalanceThreshold,
     componentProps: {
       quota,
+    },
+    ...props,
+  })
+}
+
+export function changeInstancePower(cloud: CloudProvider, endpointId: string, regionId: string, instance: Instance, action: PowerAction, triggerUpdate?: () => void, props?: ModalProps) {
+  return createModal<void>({
+    content: ChangeInstancePower,
+    componentProps: {
+      cloud,
+      endpointId,
+      regionId,
+      instance,
+      action,
+      triggerUpdate,
     },
     ...props,
   })
@@ -179,6 +197,21 @@ export function relateResourceGroup(type: RelationType, relation: Costcenter | M
     componentProps: {
       type,
       relation,
+    },
+    ...props,
+  })
+}
+
+export function resetInstancePassword(cloud: CloudProvider, endpointId: string, regionId: string, instance: Instance, triggerUpdate?: () => void, props?: ModalProps) {
+  return createModal<void>({
+    title: '重置主机密码',
+    content: ResetInstancePassword,
+    componentProps: {
+      cloud,
+      endpointId,
+      regionId,
+      instance,
+      triggerUpdate,
     },
     ...props,
   })

@@ -1,0 +1,10 @@
+span.click-edit
+  = props.children
+  Popover(title=title visible=state.visible onVisibleChange=handleVisibleChange overlayClassName="click-edit-popover" trigger="click")
+    Icon(type="form")
+    Popover:content
+      Fragment
+        SimpleForm(_ref=form states=state.states hideRequiredMark onSubmit=onSubmit)
+        .click-edit-buttons
+          Button(size="small" onClick=hide) 取消
+          Button(type="primary" size="small" onClick=form.submit loading=form.isLoading() disabled=form.isLoading()) 确定

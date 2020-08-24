@@ -1,0 +1,5 @@
+.instance-modal-content
+  if props.action !== 'start'
+    Alert.margin-bottom_40(type="warning" message=`请确认所需${ actionText }的云主机` showIcon)
+  span.instance-modal-content--name= props.instance.InstanceName
+  ConvertInstanceStatus(status=props.instance.Status)

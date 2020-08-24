@@ -1,0 +1,87 @@
+Document-Title 资源管理
+
+SiteLayout
+  Alert.margin-bottom_10(message="请选择参数获取云主机列表" showIcon)
+  .instance-cascader
+    Cascader(allowClear=false options=state.filterRegions value=filterRegionsVal onChange=changeFilterRegions)
+
+  Card.card-common
+    .instance
+      .instance-item
+        div 总实例数
+        span.instance-item_black= state.totalCount
+      .instance-item
+        div 运行中
+        span.instance-item_green= state.runningCount
+      .instance-item
+        div 即将过期
+        span.instance-item_orange= state.expirationCount
+      .instance-item
+        div 已过期
+        span.instance-item_red= state.expiratedCount
+    .table-list
+      .table-list-title 云主机列表
+      TableX(rowKey="InstanceId")
+        Table-Column(title="实例ID/名称" dataIndex="InstanceId")
+          Table-Column:render(as=(value, instance))
+            Fragment
+              ClickCopy(content=value)
+                = value
+              div
+                ClickEdit(instance=instance triggerUpdate=this.triggerUpdate.bind(this))
+                  = instance.InstanceName
+        Table-Column(title="IP地址" key="ip")
+          Table-Column:render(as=(value, instance))
+            Fragment
+              if instance.PublicIpAddress[0]
+                div
+                  ClickCopy(content=instance.PublicIpAddress[0])
+                    span.text-secondary （公）
+                    = instance.PublicIpAddress[0]
+                    span.margin-left_12 (#{ instance.InternetMaxBandwidthOut }M)
+              ClickCopy(content=instance.PrivateIpAddress[0])
+                span.text-secondary （私）
+                =instance.PrivateIpAddress[0]
+        Table-Column(title="系统/配置" key="flavor")
+          Table-Column:render(as=(value, instance))
+            Popover(placement="bottom")
+              span.cursor-pointer
+                ConvertInstanceIcon(os=instance.OSName)
+                | #{ instance.Cpu } |&nbsp;#[ConvertMemorySize(size=instance.Memory)] | #{ instance.Disksize }
+              Popover:content
+                Fragment
+                  div
+                    span.popover-detail--title 系统：
+                    ConvertInstanceIcon(os=instance.OSName)
+                    | #{ instance.OSName }
+                  div
+                    span.popover-detail--title CPU：
+                    | #{ instance.Cpu }核
+                  div
+                    span.popover-detail--title 内存：
+                    ConvertMemorySize(size=instance.Memory)
+                    | G
+                  div
+                    span.popover-detail--title 系统盘：
+                    | #{ instance.Disksize }G
+        Table-Column(title="有效期" dataIndex="ExpiredTime")
+          Table-Column:render(as=(value, instance))
+            ConvertExpirationDate(date=value pay=instance.InstanceChargeType)
+        Table-Column(title="状态" dataIndex="Status")
+          Table-Column:render(as=(value, instance))
+            ConvertInstanceStatus(status=value)
+        Table-Column(title="操作" key="action")
+          Table-Column:render(as=(value, instance))
+            Fragment
+              Button(size="small" onClick=(() => openVNC(instance)) disabled=!canConnect(instance)) 连接
+              if canShowStart(instance)
+                Button(size="small" onClick=(() => changePower(instance, 'start')) disabled=!canStart(instance)) 开机
+              else
+                Button(size="small" onClick=(() => changePower(instance, 'stop')) disabled=!canStop(instance)) 关机
+              Dropdown
+                Button(size="small") 更多
+                  Icon(type="down")
+                Dropdown:overlay
+                  Menu
+                    Menu-Item(key="reboot" onClick=(() => changePower(instance, 'reboot')) disabled=!canStop(instance)) 重启
+                    Menu-Item(key="password" onClick=(() => resetPassword(instance)) disabled=!canResetPwd(instance)) 重置密码
