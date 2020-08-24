@@ -1,0 +1,65 @@
+.instance
+  display flex
+  padding 20px 0
+  border-bottom 1px solid $border-color-split
+
+  &-cascader
+    margin-bottom 10px
+    padding 4px
+    height 40px
+    @extend .box-style
+    background $component-background
+
+    .ant-cascader
+      &-picker
+        background $primary-1
+
+      &-input
+        border-color transparent !important
+        box-shadow none !important
+
+  &-item
+    width 240px
+    line-height 24px
+    color $heading-color
+    text-align center
+    border-left 1px solid $border-color-split
+
+    span
+      display block
+      padding-top 10px
+      font-size 24px
+
+    &:first-child
+      border none
+
+    &_black
+      color $text-color
+
+    &_green
+      color $green
+
+    &_orange
+      color $orange
+
+    &_red
+      color $red
+
+  &-icon
+    width 15px
+    margin -2px 5px 0 0
+
+  &-modal-content
+    font-size $font-size-sm
+
+    &--name
+      margin-right 22px
+
+    &--password
+      position relative
+
+      .ant-checkbox-wrapper
+        position absolute
+        top 10px
+        right 14px
+        font-size $font-size-sm

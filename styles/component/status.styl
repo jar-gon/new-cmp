@@ -1,0 +1,40 @@
+.yq-status
+  position relative
+  display inline-block
+  font-size $font-size-sm
+  padding-left 15px
+
+  &:before
+    position absolute
+    left 0
+    top 50%
+    z-index 1
+    content ''
+    margin-top -5px
+    width 10px
+    height 10px
+    border-radius 50%
+
+  &_success
+    color $green
+
+    &:before
+      background $green
+
+  &_error
+    color $error-color
+
+    &:before
+      background $error-color
+
+  &_warning
+    color $warning-color
+
+    &:before
+      background $warning-color
+
+  &_default
+    color $gray
+
+    &:before
+      background $gray

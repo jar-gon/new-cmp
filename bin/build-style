@@ -8,6 +8,7 @@ const dirs = [ 'pages', 'components', 'modals' ].join(' ' )
 const modules = {
   Checkbox: { include: true },
   DatePicker: { include: true },
+  Empty: { include: true },
   Form: { name: 'Form(X|Item|Field)|SimpleForm' },
   InputNumber: { include: true },
   Modal: { regexp: 'react-utils/modal' },

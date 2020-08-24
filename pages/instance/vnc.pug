@@ -1,0 +1,8 @@
+unless state.src
+  .vnc-wrapper
+    if state.loading
+      Spin(delay="500" size="large" spinning=!state.error)
+    if state.error
+      Button(type="primary" size="large" onClick=loadVNC) 重新加载
+else
+  iframe.position-fixed(src=state.src onLoad=onLoad width="100%" height="100%" frameBorder="no")
