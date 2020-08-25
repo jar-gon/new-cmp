@@ -7,8 +7,10 @@ export interface CloudVendor {
   name: string
   icon: string
   iconGrey: string
+  img: string
   type?: string[]
   disabled?: boolean
+  selected?: boolean
 }
 
 export const CLOUD_VENDORS: CloudVendor[] = [
@@ -17,13 +19,16 @@ export const CLOUD_VENDORS: CloudVendor[] = [
     name: '阿里云',
     icon: require('~/assets/cloud/aliyun.png'),
     iconGrey: require('~/assets/cloud/aliyun-grey.png'),
+    img: require('~/assets/cloud/aliyun-lg.png'),
     type: [ '自有账号', 'MSP代理账号', '折扣账号' ],
+    selected: true,
   },
   {
     provider: 'aws',
     name: 'AWS',
     icon: require('~/assets/cloud/aws.png'),
     iconGrey: require('~/assets/cloud/aws-grey.png'),
+    img: require('~/assets/cloud/aws-lg.png'),
     type: [ '中国账号', '全球账号' ],
     disabled: true,
   },
@@ -32,6 +37,7 @@ export const CLOUD_VENDORS: CloudVendor[] = [
   //   name: '腾讯云',
   //   icon: require('~/assets/cloud/tencent.png'),
   //   iconGrey: require('~/assets/cloud/tencent-grey.png'),
+  //   img: require('~/assets/cloud/tencent-lg.png'),
   //   disabled: true,
   // },
   // {
@@ -39,6 +45,7 @@ export const CLOUD_VENDORS: CloudVendor[] = [
   //   name: '华为云',
   //   icon: require('~/assets/cloud/huawei.png'),
   //   iconGrey: require('~/assets/cloud/huawei-grey.png'),
+  //   img: require('~/assets/cloud/huawei-lg.png'),
   //   disabled: true,
   // },
   // {
@@ -46,6 +53,7 @@ export const CLOUD_VENDORS: CloudVendor[] = [
   //   name: 'UCloud',
   //   icon: require('~/assets/cloud/ucloud.png'),
   //   iconGrey: require('~/assets/cloud/ucloud-grey.png'),
+  //   img: require('~/assets/cloud/ucloud-lg.png'),
   //   disabled: true,
   // },
   // {
@@ -53,6 +61,7 @@ export const CLOUD_VENDORS: CloudVendor[] = [
   //   name: 'Azure',
   //   icon: require('~/assets/cloud/azure.png'),
   //   iconGrey: require('~/assets/cloud/azure-grey.png'),
+  //   img: require('~/assets/cloud/azure-lg.png'),
   //   disabled: true,
   // },
 ]

@@ -46,7 +46,7 @@
     "@billypon/react-template": "0.1.2",
     "@billypon/rxjs-types": "0.1.0",
     "@billypon/ts-types": "0.1.1",
-    "@billyunq/react-utils": "0.1.11",
+    "@billyunq/react-utils": "0.1.12",
     "@types/next": "8.0.6",
     "@types/node": "12.7.8",
     "@types/react": "16.9.4",

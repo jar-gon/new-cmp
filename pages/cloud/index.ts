@@ -6,6 +6,7 @@ import { ListComponent } from '~/components/utils/list'
 import { mapState, ConnectedProps } from '~/utils/redux'
 import { formatCurrency, formatDate } from '~/utils/common'
 import { createEndpoint, deleteEndpoint } from '~/modals/index'
+import { endpointDetail } from '~/modals/pages/index'
 import { CLOUD_VENDORS } from '~/utils/cloud'
 
 import AccountApi from '~/apis/account'
@@ -38,6 +39,10 @@ class EndpointList extends ListComponent<ConnectedProps, ListState<Endpoint>> {
     }).pipe(this.syncPaging)
   }
 
+  getAccountInfo(): void {
+    this.accountApi.getInfo().subscribe(account => this.props.dispatch({ type: 'account', value: account }))
+  }
+
   @autobind()
   createEndpoint(cloud: CloudProvider): void {
     createEndpoint(cloud).afterClose.subscribe(() => {
@@ -54,8 +59,9 @@ class EndpointList extends ListComponent<ConnectedProps, ListState<Endpoint>> {
     })
   }
 
-  getAccountInfo(): void {
-    this.accountApi.getInfo().subscribe(account => this.props.dispatch({ type: 'account', value: account }))
+  @autobind()
+  detail(endpoint: Endpoint): void {
+    endpointDetail(endpoint).afterCancel.subscribe(cancelUpdate => cancelUpdate ? this.loadItems() : '')
   }
 
   @autobind()

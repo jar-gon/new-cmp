@@ -1010,10 +1010,10 @@
   resolved "https://registry.yarnpkg.com/@billypon/ts-types/-/ts-types-0.1.1.tgz#0ec3c382e388bd58f4bca75af0e2c8efd8348634"
   integrity sha512-YXqwceQ0KkPRea5oKWp+5uOhsdJrC/xhyBNdMSsq8YpbzHqcBNh7JTy5ZCNs8fNZm833TpHwFoHnWXbc9uWsdA==
 
-"@billyunq/react-utils@0.1.11":
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/@billyunq/react-utils/-/react-utils-0.1.11.tgz#a77f338bd8248c2e75137cdbcbf0e2a166164ea2"
-  integrity sha512-zdpESSavPQlHOlYPNegW4msi2CbamNZJe9hhmvJHha2kC5quQ+/5FQQTs3xrHJ3HuV3v654tBdnjChURXtuHCw==
+"@billyunq/react-utils@0.1.12":
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/@billyunq/react-utils/-/react-utils-0.1.12.tgz#794ffb0d177f33f5fae725eeab81c2591297dcb4"
+  integrity sha512-5oRQeq/YQjh72ccUSYHMAiY7E2dIChJxsvF+/RPCExcGdcTdOSyP/tWmCMN+TT/aYZM1LEEpf1UFMr9rby/gEg==
 
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
