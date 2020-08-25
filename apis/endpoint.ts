@@ -21,12 +21,16 @@ class EndpointApi extends Api {
     return this.axios.get(`/console/${ id }`) as any
   }
 
+  getEndpoint(id: string): Observable<Endpoint> {
+    return this.axios.get(`/endpoint/${ id }`) as any
+  }
+
   listEndpoint(params?: PageQuery): Observable<PageResult<Endpoint>> {
     return this.axios.get('/endpoint', { params }) as any
   }
 
-  updateEndpointStatus(id: string): Observable<void> {
-    return this.axios.patch(`/endpoint/${ id }/active`) as any
+  updateEndpoint(id: string, endpoint: Endpoint): Observable<void> {
+    return this.axios.patch(`/endpoint/${ id }`, endpoint) as any
   }
 }
 

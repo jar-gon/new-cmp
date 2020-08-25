@@ -5,7 +5,7 @@ SiteLayout
   Card.card-common(title="账号管理")
     .cloud--buttons
       each cloud in CLOUD_VENDORS
-        Button(key=cloud.provider disabled=cloud.disabled onClick=(() => createEndpoint(cloud.provider)))
+        Button(key=cloud.provider class-ant-btn-selected=cloud.selected disabled=cloud.disabled onClick=(() => createEndpoint(cloud.provider)))
           img(src=(cloud.disabled ? cloud.iconGrey : cloud.icon) alt=cloud.provider)
           span.valign-middle 添加#{ cloud.name }
     .table-list
@@ -13,10 +13,7 @@ SiteLayout
       TableX(rowKey="id")
         Table-Column(title="账号别名" dataIndex="name")
           Table-Column:render(as=(value, endpoint))
-            if endpoint.type == 3
-              Link(href=`/endpoint/[_id]?_id=${ endpoint.id }` as=`/endpoint/${ endpoint.id }`): a= value
-            else
-              = value
+            a(onClick=(() => detail(endpoint)))= value
         Table-Column(title="云厂商" dataIndex="cloud")
           Table-Column:render(as=value)
             ConvertCloudIcon(cloud=value)
@@ -36,8 +33,7 @@ SiteLayout
         Table-Column(title="操作" key="action")
           Table-Column:render(as=(value, endpoint))
             Fragment
-              if endpoint.type == 3
-                Link(href=`/endpoint/[_id]?_id=${ endpoint.id }` as=`/endpoint/${ endpoint.id }`): Button(size="small") 详情
-                Button(size="small" onClick=(() => openConsole(endpoint))) 前往控制台
-              else
+              Button(size="small" onClick=(() => detail(endpoint))) 详情
+              Button(size="small" onClick=(() => openConsole(endpoint))) 前往控制台
+              if endpoint.type != 3
                 Button(size="small" onClick=(() => deleteEndpoint(endpoint))) 移除

@@ -1,0 +1,112 @@
+.endpoint
+  &-dashboard
+    position relative
+    margin-bottom 20px
+    padding-bottom 20px
+    border-bottom 1px solid $border-color-split
+
+    &-header
+      padding-bottom 12px
+      color $heading-color
+
+    &-map
+      width 960px
+      height 360px
+
+    &-content
+      position absolute
+      top 80px
+      right 28px
+
+      &-maptool
+        margin-bottom 20px
+        font-size 16px
+
+        .anticon
+          & + .anticon
+            margin-left 8px
+
+      &-count
+        line-height 34px
+        font-size $font-size-sm
+
+        li
+          position relative
+          list-style none
+
+          &:before
+            position absolute
+            left 0
+            top 11px
+            content ''
+            width 12px
+            height 12px
+            border-radius 50%
+
+          &.bg
+            &_blue:before
+              background #556dd6
+
+          &.bg
+            &_lime:before
+              background #afd15c
+
+          &.bg
+            &_orange:before
+              background #f7931e
+
+          &.bg
+            &_cyan:before
+              background #525f7f
+
+          span
+            display inline-block
+            padding-left 24px
+            min-width 100px
+            color $heading-color
+
+  &-resource-list
+    &-item
+      margin 0 15px
+      padding 20px
+      width 300px !important
+      height 150px
+      border 1px solid $border-color-split
+      background url('../assets/region-bg.png') top no-repeat
+      background-size 100%
+
+      a
+        display block
+        margin -20px
+        padding 20px
+        height 150px
+
+      &-logo
+        img
+          max-height 24px
+
+      &-name
+        margin 20px 0 12px
+        color $text-color
+
+    .slick-dots
+      top -35px
+      right 0
+      width auto
+      height 10px
+
+      li
+        margin 0 0 0 10px
+
+        button
+          margin 0
+          width 10px !important
+          height 10px
+          border-radius 50%
+          background $black-10
+          opacity 1
+
+        &.slick-active
+
+          button
+            background $primary-color

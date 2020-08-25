@@ -1,0 +1,49 @@
+Spin(spinning=!state.endpoint)
+  .detail-header
+    if state.endpoint
+      .detail-header-buttons
+        Button(type="primary" onClick=openConsole) 前往控制台
+        Button(onClick=update) 修改账号信息
+      .detail-header-name= state.endpoint.name
+      Tag(color="orange")
+        Font10 账号余额：#{ state.endpoint.currency } #{ state.endpoint.balance }
+
+Spin(spinning=!state.resourceCount)
+  .detail-body.endpoint-dashboard
+    .detail-body-header 资源汇总
+    ReactEcharts.endpoint-dashboard-map(ref=this.mapEchartRef option=optionsMap)
+    .endpoint-dashboard-content
+      .endpoint-dashboard-content-maptool
+        Icon(type="zoom-in" title="放大" onClick=(() => changeMapZoom(true)))
+        Icon(type="zoom-out" title="缩小" onClick=(() => changeMapZoom()))
+        Icon(type="redo" title="还原" onClick=resetMapZoom)
+      ul.endpoint-dashboard-content-count
+        li.bg_blue
+          span 所有区域
+          = _get(state.resourceCount.totalRegions)
+        li.bg_lime
+          span 已用区域
+          = _get(state.resourceCount.availableRegions)
+        li.bg_orange
+          span 已用主机
+          = _get(state.resourceCount.instancesCount)
+        li.bg_cyan
+          span 已用数据库
+          = _get(state.resourceCount.dbInstancesCount)
+
+Spin(spinning=!state.regions)
+  .detail-body.endpoint-resource
+    .detail-body-header 资源列表
+    if state.regions && state.regions.length
+      .endpoint-resource-list
+        Carousel(slidesToShow=3 slidesToScroll=3 adaptiveHeight)
+          each region in state.regions
+            .endpoint-resource-list-item(key=region.regionId)
+              a(onClick=(() => toInstance(region.regionId)))
+                .endpoint-resource-list-item-logo
+                  ConvertCloudImg(cloud=props.endpoint.cloud)
+                .endpoint-resource-list-item-name= region.regionName
+                Tag(color="blue")
+                  Font10 云主机 #{ region.instancesCount } 台
+    else
+      Empty

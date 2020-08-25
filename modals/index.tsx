@@ -30,6 +30,7 @@ import RelateResourceGroup from './relate-resource-group'
 import ResetMemberPassword from './reset-member-password'
 import UpdateAccount from './update-account'
 import UpdateAccountPassword from './update-account-password'
+import UpdateEndpoint from './update-endpoint'
 import UpdateMember from './update-member'
 
 function createModal<T>(props: ModalProps) {
@@ -199,6 +200,17 @@ export function updateAccountPassword(account: Account, props?: ModalProps) {
     content: UpdateAccountPassword,
     componentProps: {
       account,
+    },
+    ...props,
+  })
+}
+
+export function updateEndpoint(endpoint: Endpoint, props?: ModalProps) {
+  return createModal<void>({
+    title: '修改账号信息',
+    content: UpdateEndpoint,
+    componentProps: {
+      endpoint,
     },
     ...props,
   })
