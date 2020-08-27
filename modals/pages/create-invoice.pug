@@ -1,0 +1,12 @@
+.detail
+  SimpleForm(_ref=form states=states hideRequiredMark onSubmit=onSubmit)
+  if state.errorMessage
+    .detail-error= state.errorMessage
+  Button(type="primary" onClick=form.submit loading=form.isLoading() disabled=form.isLoading()) 保存
+  Button(onClick=modal.cancel) 返回
+
+Template(ref=this.tipTpl)
+  Alert(type="warning" showIcon message="点击保存按钮后将提交增票资质审核，审核中无法进行增票开票。")
+
+Template(ref=this.imageurlTpl)
+  UploadPicture

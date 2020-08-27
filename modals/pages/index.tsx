@@ -7,8 +7,11 @@ import Modal, { ModalProps } from '@billyunq/react-utils/modal'
 import { store } from '~/utils/redux'
 
 import { Endpoint } from '~/models/endpoint'
+import { Invoice } from '~/models/invoice'
 
+import CreateInvoice from './create-invoice'
 import EndpointDetail from './endpoint-detail'
+import UpdateInvoice from './update-invoice'
 
 function createModal<T>(props: ModalProps) {
   const Component = props.content as NextComponentType<NextPageContext, { }, { modal: Modal }>
@@ -32,11 +35,28 @@ function createModal<T>(props: ModalProps) {
   return modal
 }
 
+export function createInvoice(props?: ModalProps) {
+  return createModal<void>({
+    content: CreateInvoice,
+    ...props,
+  })
+}
+
 export function endpointDetail(endpoint: Endpoint, props?: ModalProps) {
   return createModal<void>({
     content: EndpointDetail,
     componentProps: {
       endpoint,
+    },
+    ...props,
+  })
+}
+
+export function updateInvoice(invoice: Invoice, props?: ModalProps) {
+  return createModal<void>({
+    content: UpdateInvoice,
+    componentProps: {
+      invoice,
     },
     ...props,
   })
