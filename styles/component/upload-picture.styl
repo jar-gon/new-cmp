@@ -1,0 +1,56 @@
+.upload-picture, .upload-pictures
+  margin 0 -10px
+  display block
+
+  &-header
+    padding 0 10px
+
+    span
+      padding-right 5px
+      color $link-color
+      cursor pointer
+
+  .ant-upload
+    &-drag
+      float left
+      margin 10px
+      width 205px
+      height 140px
+      border-style solid
+      background $component-background
+
+      .ant-upload-btn
+        line-height $line-height
+        font-size $font-size-sm
+        color $black-25
+
+      .anticon-plus
+        margin-bottom 12px
+        font-size 46px
+        color $black-10
+
+    &-disabled
+      background #f5f5f5
+
+      &:hover .anticon-plus
+        color $black-10
+
+    &-list
+      &-picture-card
+        float left
+
+        .ant-upload-list
+          &-item
+            margin 10px
+            padding 0
+            width 205px
+            height 140px
+
+            &-info::before
+              background $black-70
+
+            &-actions
+              .anticon
+                margin 0 12px
+                width 22px
+                font-size 22px

@@ -5,6 +5,7 @@ import { autobind } from '@billypon/react-decorator'
 import { ListComponent } from '~/components/utils/list'
 import { mapState, ConnectedProps } from '~/utils/redux'
 import { formatCurrency, formatDate } from '~/utils/common'
+import { createInvoice, updateInvoice } from '~/modals/pages/index'
 import { deleteInvoice } from '~/modals/index'
 
 import InvoiceApi from '~/apis/invoice'
@@ -33,8 +34,18 @@ class InvoiceList extends ListComponent<ConnectedProps, ListState<Invoice>> {
   }
 
   @autobind()
+  createInvoice(): void {
+    createInvoice().afterCancel.subscribe(cancelUpdate => cancelUpdate ? this.loadItems() : '')
+  }
+
+  @autobind()
   deleteInvoice(invoice: Invoice): void {
     deleteInvoice(invoice).afterClose.subscribe(() => this.loadItems())
+  }
+
+  @autobind()
+  update(invoice: Invoice): void {
+    updateInvoice(invoice).afterCancel.subscribe(cancelUpdate => cancelUpdate ? this.loadItems() : '')
   }
 
   render() {

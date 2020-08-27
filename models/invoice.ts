@@ -1,22 +1,30 @@
 import { AuditStatus } from './common'
 
-export interface Invoice {
-  address: string
-  bank_account: string
-  created_at: Date
-  id: string
-  invoice_title: string
+export interface CreateInvoiceData {
   invoice_type: InvoiceType
-  open_bank: string
+  invoice_title: string
+  tax_number: string
+  registered_address?: string
+  registered_phone?: string
+  open_bank?: string
+  bank_account?: string
+  receiver: string
   phone: string
   province: string
-  receiver: string
-  registered_address: string
-  registered_phone: string
-  tax_number: string
+  address: string
+  imageurl?: string
+  opener_type?: string
+}
+
+export interface FileData {
+  imageurl: string
+}
+
+export interface Invoice extends CreateInvoiceData {
+  id: string
+  created_at: string
   status: AuditStatus
   description: string
-  imageurl: string
 }
 
 export type InvoiceType = 'general' | 'vat'
