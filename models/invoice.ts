@@ -1,6 +1,6 @@
 import { AuditStatus } from './common'
 
-export interface CreateInvoiceData {
+export interface BaseInvoice {
   invoice_type: InvoiceType
   invoice_title: string
   tax_number: string
@@ -12,6 +12,9 @@ export interface CreateInvoiceData {
   phone: string
   province: string
   address: string
+}
+
+export interface CreateInvoiceData extends BaseInvoice {
   imageurl?: string
   opener_type?: string
 }

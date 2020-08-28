@@ -6,9 +6,11 @@ import Modal, { ModalProps } from '@billyunq/react-utils/modal'
 
 import { store } from '~/utils/redux'
 
+import { Bill } from '~/models/bill'
 import { Endpoint } from '~/models/endpoint'
 import { Invoice } from '~/models/invoice'
 
+import BillDetail from './bill-detail'
 import CreateInvoice from './create-invoice'
 import EndpointDetail from './endpoint-detail'
 import UpdateInvoice from './update-invoice'
@@ -33,6 +35,16 @@ function createModal<T>(props: ModalProps) {
   )
   modal.open()
   return modal
+}
+
+export function billDetail(bill: Bill, props?: ModalProps) {
+  return createModal<void>({
+    content: BillDetail,
+    componentProps: {
+      bill,
+    },
+    ...props,
+  })
 }
 
 export function createInvoice(props?: ModalProps) {

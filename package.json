@@ -24,7 +24,7 @@
     "echarts": "^4.8.0",
     "echarts-for-react": "^2.0.16",
     "flatten-obj": "3.1.1",
-    "js-export-excel": "^1.1.2",
+    "js-export-excel": "^1.1.4",
     "next": "9.0.7",
     "pino": "5.13.5",
     "pino-pretty": "3.3.0",
