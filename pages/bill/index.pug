@@ -6,7 +6,7 @@ Card.card-common(title="账单列表")
       Table-Column(title="账期" dataIndex="name")
         Table-Column:render(as=(value, bill))
           if bill.bill_amount
-            a= bill.name
+            a(onClick=(() => detail(bill)))= bill.name
           else
             = bill.name
       Table-Column(title="消费金额" dataIndex="bill_amount")
@@ -45,6 +45,6 @@ Card.card-common(title="账单列表")
         Table-Column:render(as=(value, bill))
           if bill.bill_amount
             Fragment
-              Button(size="small") 详情
+              Button(size="small" onClick=(() => detail(bill))) 详情
               if (bill.status == 'Unissue' && !bill.current_month)
                 Button(size="small" onClick=(() => openInvoice(bill))) 开票

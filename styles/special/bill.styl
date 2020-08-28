@@ -1,0 +1,34 @@
+.bill-detail
+  @extend .flex-between
+  margin-bottom 40px
+
+  &-item
+    padding 20px
+    width 230px
+    height 100px
+    color $heading-color
+    box-shadow $box-shadow
+
+    div:first-child
+      padding-bottom 6px
+      line-height 32px
+      font-size 24px
+      font-weight bold
+      color $primary-color
+
+    &:first-child
+      div:first-child
+        color $heading-color
+
+  &-invoice
+    margin-bottom 20px
+    font-size $font-size-sm
+    list-style none
+
+    li
+      padding-bottom 20px
+
+      span
+        display inline-block
+        min-width 135px
+        color $heading-color

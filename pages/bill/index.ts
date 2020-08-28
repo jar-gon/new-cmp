@@ -5,6 +5,7 @@ import { autobind } from '@billypon/react-decorator'
 import { ListComponent } from '~/components/utils/list'
 import { mapState, ConnectedProps } from '~/utils/redux'
 import { formatCurrency, formatDate } from '~/utils/common'
+import { billDetail } from '~/modals/pages/index'
 import { openInvoice } from '~/modals/index'
 
 import BillApi from '~/apis/bill'
@@ -30,6 +31,11 @@ class BillList extends ListComponent<ConnectedProps, ListState<Bill>> {
       pagenumber: this.pageNumber,
       pagesize: this.pageSize,
     }).pipe(this.syncPaging)
+  }
+
+  @autobind()
+  detail(bill: Bill): void {
+    billDetail(bill).afterCancel.subscribe(cancelUpdate => cancelUpdate ? this.loadItems() : '')
   }
 
   @autobind()

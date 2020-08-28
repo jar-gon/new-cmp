@@ -1,0 +1,59 @@
+Spin(spinning=!state.bill)
+  if state.bill
+    .detail-body
+      .detail-body-header 消费合计
+      if (state.bill.status == 'Unissue' && !state.bill.current_month)
+        Button.margin-bottom_20(type="primary" onClick=openInvoice) 开票
+      .bill-detail
+        .bill-detail-item
+          div= state.bill.name
+          div 账期
+        .bill-detail-item
+          div ￥#{ formatCurrency(state.bill.bill_total || 0) }
+          div 原价
+        .bill-detail-item
+          div ￥#{ formatCurrency(state.bill.bill_save || 0) }
+          div 优惠金额
+        .bill-detail-item
+          div ￥#{ formatCurrency(state.bill.bill_amount || 0) }
+          div 消费金额
+
+      if state.bill.status != 'Unissue'
+        .detail-body-header 发票信息
+        ul.bill-detail-invoice
+          li
+            span 单位名称
+            = state.bill.invoice_title
+          li
+            span 纳税人识别码
+            = state.bill.tax_number
+          if (state.bill.invoice_type == 'vat')
+            li
+              span 注册地址
+              = state.bill.registered_address
+            li
+              span 注册电话
+              = state.bill.registered_phone
+            li
+              span 开户银行
+              = state.bill.open_bank
+            li
+              span 银行账户
+              = state.bill.bank_account
+          li
+            span 收件人姓名
+            = state.bill.receiver
+          li
+            span 联系电话
+            = state.bill.phone
+          li
+            span 所在省市
+            = state.bill.province
+          li
+            span 详细地址
+            = state.bill.address
+
+      .detail-body-header 产品消费汇总
+      Button.margin-bottom_10(onClick=exportBillOrder) 导出
+      .table-list
+        OrderList(isBillDetail params={bill_id: props.bill.id, current_month: props.bill.current_month})

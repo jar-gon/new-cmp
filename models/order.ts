@@ -1,15 +1,19 @@
-export interface Order {
-  id: string
-  create_time: string
-  order_id: string
+export interface BaseOrder {
   discount: number
   amount: number
   pretax_gross_amount: number
-  product_code: string
-  product_type: string
-  subscription_type: SubscriptionType
   discount_type: DiscountType
 }
 
-export type SubscriptionType = 'Subscription' | 'PayAsYouGo'
+export interface Order extends BaseOrder {
+  id: string
+  create_time: string
+  order_id: string
+  product_code: string
+  product_type: string
+  subscription_type: SubscriptionType
+}
+
 export type DiscountType = 'normal' | 'mininum' | 'rebate'
+
+export type SubscriptionType = 'Subscription' | 'PayAsYouGo'

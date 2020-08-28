@@ -9,7 +9,7 @@ Template(ref=this.invoiceListTpl)
       each invoice in state.invoices
         Select-Option(key=invoice.id value=invoice.id)= invoice.invoice_title
     if !state.invoices.length
-      a.margin-left_12(onClick=CreateInvoice) 创建发票
+      a.margin-left_12(onClick=createInvoice) 创建发票
 
 Template(ref=this.invoiceInfoTpl)
   if state.invoiceInfo

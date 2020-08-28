@@ -8,6 +8,7 @@ import { autobind } from '@billypon/react-decorator'
 import { mapState, ConnectedProps } from '~/utils/redux'
 import { appendTask } from '~/utils/task'
 import { formatCurrency } from '~/utils/common'
+import { createInvoice } from './pages/index'
 
 import { INVOICE_TYPES } from '~/components/converters/invoice-type'
 
@@ -105,6 +106,12 @@ export class OpenInvoice extends SimpleFormModalComponent<ConnectedProps & OpenI
         selectInvoiceId: invoices.length ? invoices[0].id : undefined,
       })
     })
+  }
+
+  @autobind()
+  createInvoice(): void {
+    this.modal.cancel()
+    createInvoice()
   }
 
   @autobind()
