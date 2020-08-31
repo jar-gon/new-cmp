@@ -8,8 +8,9 @@ SiteLayout
     .table-list
       TableX(rowKey="id")
         Table-Column(title="工单ID" dataIndex="id")
-          Table-Column:render(as=value)
-            ShortName-Id(value=value)
+          Table-Column:render(as=(value, ticket))
+            a(onClick=(() => detail(ticket)))
+              ShortName-Id(value=value)
         Table-Column(title="问题分类" dataIndex="subquestion")
         Table-Column(title="问题描述" dataIndex="desc")
           Table-Column:render(as=value)
@@ -23,4 +24,4 @@ SiteLayout
             ConvertTicketStatus(status=value)
         Table-Column(title="操作" key="action")
           Table-Column:render(as=(value, ticket))
-            Button(size="small") 详情
+            Button(size="small" onClick=(() => detail(ticket))) 详情

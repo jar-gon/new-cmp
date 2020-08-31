@@ -1,12 +1,14 @@
 import { connect } from 'react-redux/es'
 import { ListState } from '@billyunq/react-utils/table'
 import { SelectAddition } from '@billyunq/react-utils/simple-form'
+import { autobind } from '@billypon/react-decorator'
 
 import { ListComponent } from '~/components/utils/list'
 import { mapState, ConnectedProps } from '~/utils/redux'
 import { mapArray } from '~/utils/api'
 import { formatDate } from '~/utils/common'
 import { datetime } from '~/utils/form'
+import { createTicket, ticketDetail } from '~/modals/pages/index'
 
 import TicketApi from '~/apis/ticket'
 import { Ticket, TicketStatus } from '~/models/ticket'
@@ -63,6 +65,16 @@ class TicketList extends ListComponent<ConnectedProps, ListState<Ticket>> {
       },
       datetime: datetime(),
     }
+  }
+
+  @autobind()
+  createTicket(): void {
+    createTicket().afterCancel.subscribe(cancelUpdate => cancelUpdate ? this.loadItems() : '')
+  }
+
+  @autobind()
+  detail(ticket: Ticket): void {
+    ticketDetail(ticket).afterCancel.subscribe(cancelUpdate => cancelUpdate ? this.loadItems() : '')
   }
 
   render() {

@@ -9,10 +9,13 @@ import { store } from '~/utils/redux'
 import { Bill } from '~/models/bill'
 import { Endpoint } from '~/models/endpoint'
 import { Invoice } from '~/models/invoice'
+import { Ticket } from '~/models/ticket'
 
 import BillDetail from './bill-detail'
 import CreateInvoice from './create-invoice'
+import CreateTicket from './create-ticket'
 import EndpointDetail from './endpoint-detail'
+import TicketDetail from './ticket-detail'
 import UpdateInvoice from './update-invoice'
 
 function createModal<T>(props: ModalProps) {
@@ -54,11 +57,28 @@ export function createInvoice(props?: ModalProps) {
   })
 }
 
+export function createTicket(props?: ModalProps) {
+  return createModal<void>({
+    content: CreateTicket,
+    ...props,
+  })
+}
+
 export function endpointDetail(endpoint: Endpoint, props?: ModalProps) {
   return createModal<void>({
     content: EndpointDetail,
     componentProps: {
       endpoint,
+    },
+    ...props,
+  })
+}
+
+export function ticketDetail(ticket: Ticket, props?: ModalProps) {
+  return createModal<void>({
+    content: TicketDetail,
+    componentProps: {
+      ticket,
     },
     ...props,
   })
