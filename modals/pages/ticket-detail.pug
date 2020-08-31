@@ -1,0 +1,46 @@
+Spin(spinning=!state.ticket)
+  if [ TicketStatus.Submitted, TicketStatus.Replied ].includes(_get(state.ticket.status))
+    .ticket-detail-header
+      a(onClick=complete) 确认结单
+  each message, index in _get(state.ticket.message)
+    Card.card-comment(key=message.msg_id)
+      Card:title
+        unless message.role_type
+          Avatar(size="small")= message.username[0].toUpperCase()
+          span.card-comment-name= message.username
+          span.card-comment-role 用户
+          unless index
+            span.card-comment-class 分类：#{ ticketCategories.join(' > ') }
+        else
+          Avatar(size="small" src=require("~/assets/avatar.png"))
+          span.card-comment-name= message.username
+          span.card-comment-role 客服
+      Card:extra
+        span #{ message.role_type ? '回复时间' : '发布时间' }：#{ formatDate(message.created_at) }
+      div= message.type != 0 ? message.message : '该问题已经关闭，如有疑问，请重新提交问题。'
+      each url in message.url
+        div(key=url)
+          a(href=url target="_blank")
+            img(src=url)
+
+  if (_get(state.ticket.status) != TicketStatus.Closed)
+    .ticket-detail(ref=this.rateContainer)
+      if (_get(state.ticket.status) == TicketStatus.Completed)
+        .ticket-detail-title 该问题已经处理完毕，您的评价对我们提高服务品质非常重要，感谢您的支持！
+        div
+          Radio-Group.ticket-detail-radio-group(options=rateLevels value=state.rateLevel onChange=setRateLevel)
+          if state.rateLevel === 1
+            div(class-has-error=(state.rateMessageDirty && !state.rateMessage))
+              Input-TextArea.margin-top_12(value=state.rateMessage placeholder="请说出您不满意的原因，以便我们持续改进。" disabled=state.isLoading onChange=setRateMessage)
+              .ant-form-explain 请输入您不满意的原因
+        Button.margin-top_20(type="primary" onClick=rate loading=state.isLoading disabled=state.isLoading) 提交
+        .ticket-detail-text 或者
+
+      .ticket-detail-title 继续提交问题
+      div(class-has-error=(state.messageDirty && !state.message))
+        Input-TextArea(value=state.message placeholder="问题描述" disabled=state.isLoading onChange=setMessage)
+        if state.messageDirty && !state.message
+          .ant-form-explain 请输入问题描述
+      .margin-top_8
+        UploadPictures(files=state.pictures onChange=setPictures disabled=state.isLoading)
+      Button.margin-top_10(type="primary" onClick=reply loading=state.isLoading disabled=state.isLoading) 提交

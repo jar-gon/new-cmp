@@ -1,0 +1,18 @@
+if states
+  .detail.ticket
+    SimpleForm(_ref=form states=states hideRequiredMark onSubmit=onSubmit)
+    if state.errorMessage
+      .detail-error= state.errorMessage
+    Button(type="primary" onClick=form.submit loading=form.isLoading() disabled=form.isLoading()) 保存
+    Button(onClick=modal.cancel) 返回
+
+Template(ref=setCategoryTpl)
+  Select(value=state.categoryId onChange=setCategory placeholder="选择问题分类")
+    each category in categories
+      Select-Option(key=category.id value=category.id)= category.question
+  Select(value=state.subCategoryId onChange=setSubCategory placeholder="选择子问题分类")
+    each subCategory in subCategories
+      Select-Option(key=subCategory.id value=subCategory.id)= subCategory.subquestion
+
+Template(ref=this.picturesTpl)
+  UploadPictures

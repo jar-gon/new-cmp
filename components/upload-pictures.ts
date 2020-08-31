@@ -5,6 +5,7 @@ import { autobind } from '@billypon/react-decorator'
 import template from './upload-pictures.pug'
 
 interface UploadPicturesProps {
+  files: UploadFile[]
   disabled: boolean
   onChange: (files: UploadFile[]) => void
 }
@@ -20,8 +21,9 @@ class UploadPictures extends Component<UploadPicturesProps, UploadPicturesState>
   hideRemoveIcon: ShowUploadListInterface = { showPreviewIcon: true, showRemoveIcon: false }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const { files } = prevState
-    const { disabled } = nextProps
+    const { files: filesState } = prevState
+    const { disabled, files: filesProps } = nextProps
+    const files = filesProps || filesState
     return { files, disabled }
   }
 

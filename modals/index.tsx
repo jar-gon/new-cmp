@@ -16,6 +16,7 @@ import { RelationType } from '~/models/relation'
 import { ResourceGroup } from '~/models/resource-group'
 
 import BalanceThreshold from './balance-threshold'
+import CompleteTicket from './complete-ticket'
 import CreateCostcenter from './create-costcenter'
 import CreateEndpoint from './create-endpoint'
 import CreateMember from './create-member'
@@ -53,6 +54,17 @@ export function balanceThreshold(quota: number, props?: ModalProps) {
     content: BalanceThreshold,
     componentProps: {
       quota,
+    },
+    ...props,
+  })
+}
+
+export function completeTicket(ticketId: string, props?: ModalProps) {
+  return createModal<void>({
+    title: '确认结单',
+    content: CompleteTicket,
+    componentProps: {
+      ticketId,
     },
     ...props,
   })
