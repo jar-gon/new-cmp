@@ -29,6 +29,11 @@ class EndpointApi extends Api {
     return this.axios.get('/endpoint', { params }) as any
   }
 
+  updateData(cloud: string): Observable<void> {
+    const params = { cloud }
+    return this.axios.get('/update', { params }) as any
+  }
+
   updateEndpoint(id: string, endpoint: Endpoint): Observable<void> {
     return this.axios.patch(`/endpoint/${ id }`, endpoint) as any
   }
