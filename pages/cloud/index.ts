@@ -4,6 +4,7 @@ import { autobind } from '@billypon/react-decorator'
 
 import { ListComponent } from '~/components/utils/list'
 import { mapState, ConnectedProps } from '~/utils/redux'
+import Notification from '~/utils/notification'
 import { formatCurrency, formatDate } from '~/utils/common'
 import { createEndpoint, deleteEndpoint } from '~/modals/index'
 import { endpointDetail } from '~/modals/pages/index'
@@ -68,6 +69,18 @@ class EndpointList extends ListComponent<ConnectedProps, ListState<Endpoint>> {
   openConsole(endpoint: Endpoint): void {
     const { protocol, host, pathname } = window.location
     window.open(`${ protocol }//${ host }${ pathname }/${ endpoint.id }/console`)
+  }
+
+  @autobind()
+  updateData(): void {
+    this.endpointApi.updateData('aliyun').subscribe(
+      () => {
+        Notification.info('数据更新中', '请10分钟之后重新刷新页面。')
+      },
+      ({ retMsg }) => {
+        Notification.error('操作失败！', retMsg)
+      }
+    )
   }
 
   render() {
