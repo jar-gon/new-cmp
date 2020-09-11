@@ -1,0 +1,5 @@
+Spin(spinning=!state.expenses)
+  if state.expenses && state.expenses.length
+    ReactEcharts(ref=this.barEchartRef option=optionsBar className=props.isIndex ? '' : 'expense-bar')
+  else
+    Empty(image=Empty.PRESENTED_IMAGE_SIMPLE)

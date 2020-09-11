@@ -2,4 +2,5 @@
   SimpleForm(_ref=form states=props.states onSubmit=props.onSubmit layout="inline")
   .filter-form-buttons
     Button.secondary-primary(onClick=form.submit) 查询
-    Button(type="default" onClick=resetFields) 清空
+    if !props.hideClearBtn
+      Button(type="default" onClick=resetFields) 清空

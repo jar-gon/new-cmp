@@ -3,17 +3,19 @@ import { forkJoin } from 'rxjs'
 import { Component } from '@billyunq/react-utils/react'
 import ReactEcharts from 'echarts-for-react'
 import { autobind } from '@billypon/react-decorator'
+import { Dictionary } from '@billypon/ts-types'
 
 import { mapState, ConnectedProps } from '~/utils/redux'
 import { formatCurrency, formatDate, strmax } from '~/utils/common'
-import { CLOUD_VENDORS } from '~/utils/cloud'
-import { CONSUME_DATE, CONSUME_COST, optionsBar, optionsPie } from '~/utils/dashboard'
+import { CONSUME_COST, CONSUME_DATE, CONSUME_DIMENSION, CONSUME_PAY, optionsPie } from '~/utils/dashboard'
 
 import IndexApi from '~/apis/index'
-import { CostConsume, Endpoint, EndpointConsume, ProductConsume, Summary } from '~/models/index'
+import { CostConsume, Endpoint, ProductConsume, Summary } from '~/models/index'
+import { ExpenseParams } from '~/models/expense'
 
 import { ConvertCloudType } from '~/components/converters/cloud-type'
 import { ConvertCloudIcon } from '~/components/converters/cloud-icon'
+import ExpenseBar, { ExpenseBarRef } from '~/components/partials/expense-bar'
 
 import SiteLayout from '~/components/layout'
 import Document from '~/components/document'
@@ -23,9 +25,7 @@ import template from './index.pug'
 interface IndexState {
   costConsume: CostConsume[]
   consumeDate: string
-  consumeType: string
-  consumeTypeName: string
-  endpointConsume: EndpointConsume[]
+  consumeCost: Dictionary
   endpoints: Endpoint[]
   endpointLen: number
   productConsume: ProductConsume[]
@@ -35,22 +35,29 @@ interface IndexState {
 @connect(mapState)
 class Index extends Component<ConnectedProps, IndexState> {
   indexApi: IndexApi
+  params: ExpenseParams
 
   costPieEchartRef: ReactEcharts
+  expenseBar: ExpenseBarRef
   productPieEchartRef: ReactEcharts
-  barEchartRef: ReactEcharts
 
   getInitialState() {
     return {
       consumeDate: CONSUME_DATE[0].value,
-      consumeType: CONSUME_COST[0].value,
-      consumeTypeName: CONSUME_COST[0].label,
+      consumeCost: CONSUME_COST[0],
       endpointLen: 0,
     }
   }
 
   componentDidMount() {
     this.indexApi = new IndexApi()
+    this.expenseBar = new ExpenseBarRef()
+    this.params = {
+      dimension: CONSUME_DIMENSION[0].value,
+      cost: CONSUME_COST[0].value,
+      pay: CONSUME_PAY[0].value,
+      mode: CONSUME_DATE[0].value,
+    }
     forkJoin(
       this.indexApi.listEndpoint(),
       this.indexApi.getSummary(),
@@ -63,8 +70,8 @@ class Index extends Component<ConnectedProps, IndexState> {
       })
     })
     this.getCostConsume()
+    this.getExpense()
     this.getProductConsume()
-    this.getEndpointConsume(this.state.consumeDate)
   }
 
   getCostConsume(): void {
@@ -106,61 +113,9 @@ class Index extends Component<ConnectedProps, IndexState> {
     })
   }
 
-  getEndpointConsume(consumeDate): void {
-    const endpointOptionsBar = JSON.parse(JSON.stringify(optionsBar))
-    const legendData = []
-    const xAxisData = []
-    const series = []
-    this.indexApi.getEndpointConsume(consumeDate).subscribe(endpointConsume => {
-      this.setState({ endpointConsume })
-      if (!endpointConsume.length) {
-        return
-      }
-      endpointConsume.forEach((x, i) => {
-        series[i] = {}
-        series[i].data = []
-        series[i].type = 'bar'
-        series[i].stack = 'consume'
-        legendData.push(x.name)
-        series[i].name = x.name
-        x.data.forEach(v => {
-          if (!i) {
-            xAxisData.push(v.x)
-          }
-          series[i].data.push(v.value)
-        })
-      })
-      endpointOptionsBar.legend.formatter = name => {
-        const item = endpointConsume.filter(x => x.name === name)[0]
-        const arr = [
-          `{${ item.cloud }|}`,
-          `{name|${ name }}`
-        ]
-        return arr.join('')
-      }
-      endpointOptionsBar.legend.textStyle.rich = {
-        name: {
-          padding: [ 0, 0, 0, 5 ]
-        },
-        aliyun: {
-          width: 15,
-          height: 10,
-          backgroundColor: {
-            image: CLOUD_VENDORS[0].icon
-          }
-        },
-        aws: {
-          width: 15,
-          height: 10,
-          backgroundColor: {
-            image: CLOUD_VENDORS[1].icon
-          }
-        }
-      }
-      endpointOptionsBar.legend.data = legendData
-      endpointOptionsBar.xAxis.data = xAxisData
-      endpointOptionsBar.series = series
-      this.barEchartRef.getEchartsInstance().setOption(endpointOptionsBar)
+  getExpense(): void {
+    this.triggerUpdate().subscribe(() => {
+      this.expenseBar.loadItems()
     })
   }
 
@@ -200,16 +155,21 @@ class Index extends Component<ConnectedProps, IndexState> {
   }
 
   @autobind()
-  dateChange(e): void {
-    const { value } = e.target
-    this.setState({ consumeDate: value, endpointConsume: null })
-    this.getEndpointConsume(value)
+  costChange(e): void {
+    const { value } = e.item.props
+    this.setState({ consumeCost: value }).subscribe(() => {
+      this.params.cost = value.value
+      this.getExpense()
+    })
   }
 
   @autobind()
-  typeChange(e): void {
-    const { children, value } = e.item.props
-    this.setState({ consumeType: value, consumeTypeName: children })
+  dateChange(e): void {
+    const { value } = e.target
+    this.setState({ consumeDate: value }).subscribe(() => {
+      this.params.mode = value
+      this.getExpense()
+    })
   }
 
   render() {
@@ -217,8 +177,8 @@ class Index extends Component<ConnectedProps, IndexState> {
     return template.call(this, {
       ...this, Document, SiteLayout, Font10,
       formatCurrency, formatDate,
-      ConvertCloudType, ConvertCloudIcon,
-      ReactEcharts, optionsBar, optionsPie, CONSUME_DATE, CONSUME_COST,
+      ConvertCloudType, ConvertCloudIcon, ExpenseBar,
+      ReactEcharts, optionsPie, CONSUME_DATE, CONSUME_COST,
     })
   }
 }

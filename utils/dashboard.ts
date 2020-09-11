@@ -1,11 +1,25 @@
 export const CONSUME_COST = [
-  { label: '支出', value: 'zc' },
-  { label: '分摊', value: 'ft' }
+  { label: '订单支出', value: 'expend' },
+  { label: '逐期分摊', value: 'share' }
 ]
 
 export const CONSUME_DATE = [
   { label: '月', value: 'month' },
   { label: '日', value: 'day' }
+]
+
+export const CONSUME_DIMENSION = [
+  { label: '账号', value: 'endpoint' },
+  { label: '云厂商', value: 'provider' },
+  { label: '产品', value: 'product' },
+  { label: '区域', value: 'region' },
+  { label: '成本中心', value: 'cost' }
+]
+
+export const CONSUME_PAY = [
+  { label: '全部', value: 'all' },
+  { label: '预付费(包年包月)', value: 'prepayment' },
+  { label: '后付费(按量付费)', value: 'postpaid' }
 ]
 
 export const optionsColor = [
@@ -22,12 +36,12 @@ export const optionsBar = {
     }
   },
   legend: {
-    bottom: '8',
     itemWidth: 12,
     itemHeight: 6,
     formatter: name => {
       return name
     },
+    inactiveColor: '#b4b4b4',
     textStyle: {
       color: '#525f7f',
       rich: { }
@@ -35,10 +49,10 @@ export const optionsBar = {
     data: [ ]
   },
   grid: {
-    top: '20',
+    top: '16%',
     left: 0,
     right: 0,
-    bottom: '40',
+    bottom: 'auto',
     containLabel: true
   },
   xAxis: {
@@ -181,6 +195,7 @@ export const optionsPie = {
     formatter: name => {
       return name
     },
+    inactiveColor: '#b4b4b4',
     textStyle: {
       color: '#525f7f'
     },

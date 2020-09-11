@@ -4,17 +4,12 @@ import { Observable } from 'rxjs'
 
 import Api from './common'
 import { CommonApiClass } from '~/utils/api'
-import { CostConsume, Endpoint, EndpointConsume, ProductConsume, Summary } from '~/models/index'
+import { CostConsume, Endpoint, ProductConsume, Summary } from '~/models/index'
 
 @CommonApiClass
 class IndexApi extends Api {
   getCostConsume(): Observable<CostConsume[]> {
     return this.axios.get('/project-balance') as any
-  }
-
-  getEndpointConsume(mode?: string): Observable<EndpointConsume[]> {
-    const params = { mode }
-    return this.axios.get('/trend', { params }) as any
   }
 
   getProductConsume(): Observable<ProductConsume[]> {
