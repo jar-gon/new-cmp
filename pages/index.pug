@@ -67,17 +67,14 @@ SiteLayout
   Card.card-common.consume(title="账号消费趋势")
     Card:extra
       Dropdown.consume-dropdown(trigger=["click"])
-        span= state.consumeTypeName
+        span= state.consumeCost.label
           Icon.margin-left_8(type="down")
         Dropdown:overlay
           Menu
-            each type in CONSUME_COST
-              Menu-Item(key=type.value value=type.value onClick=typeChange)= type.label
+            each cost in CONSUME_COST
+              Menu-Item(key=cost.value value=cost onClick=costChange)= cost.label
     Radio-Group.consume-radio-group(value=state.consumeDate onChange=dateChange)
       each date in CONSUME_DATE
         Radio-Button(key=date.value value=date.value)= date.label
-    Spin(spinning=!state.endpointConsume)
-      if state.endpointConsume && state.endpointConsume.length
-        ReactEcharts.consume-echart(ref=this.barEchartRef option=optionsBar)
-      else
-        Empty(image=Empty.PRESENTED_IMAGE_SIMPLE)
+    if expenseBar
+      ExpenseBar(_ref=expenseBar isIndex params=params)

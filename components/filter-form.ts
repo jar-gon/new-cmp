@@ -9,6 +9,7 @@ import template from './filter-form.pug'
 const WrappedSimpleForm = Form.create({ name: 'filter-form ' })(SimpleForm)
 
 interface FormFilterProps {
+  hideClearBtn: boolean
   states: Dictionary<FormState>
   onSubmit: (values: Dictionary) => void
   onReset: () => void

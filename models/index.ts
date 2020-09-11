@@ -17,18 +17,6 @@ export interface Endpoint {
   last_month: number
 }
 
-export interface EndpointConsume {
-  id: string
-  cloud: CloudProvider
-  name: string
-  data: EndpointConsumeData[]
-}
-
-export interface EndpointConsumeData {
-  x: string
-  value: number
-}
-
 export interface ProductConsume {
   service: string
   percent: number
