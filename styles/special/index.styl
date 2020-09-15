@@ -1,0 +1,110 @@
+.index
+  @extend .flex-between
+
+  .card-common
+    width 490px
+
+  .slick
+    &-list
+      height 138px !important
+
+    &-slide
+      .cloud--icon
+        display inline-block
+        margin-right 8px
+
+    &-dots
+      top -52px
+      right 0
+      width auto
+      height 10px
+
+      li
+        float left
+        margin 0 0 0 10px
+
+        button
+          margin 0
+          width 10px !important
+          height 10px !important
+          border-radius 50%
+          background $black-10
+          opacity 1
+
+        &.slick-active
+
+          button
+            background $primary-color
+
+  &-endpoint
+    .slick-slide
+      border-width 0 !important
+
+    &-item
+      padding 11px 0 12px
+      line-height $line-height
+      font-size $font-size-sm
+      border-top 1px solid $border-color-split
+
+      &-header
+        padding-top 0
+        line-height 1
+        border-width 0
+
+      div
+        display inline-block
+
+      &-cell
+        &1
+          width 140px
+
+        &2
+          width 90px
+
+        &3, &4
+          width 110px
+
+  .ant-card-extra
+    font-size $font-size-sm
+
+  &-summary
+    padding-bottom 10px
+
+    &-item
+      height 40px
+      line-height 40px
+
+      b
+        padding-right 10px
+        font-size 24px
+        font-weight bold
+        vertical-align sub
+
+      &:nth-child(2n - 1)
+        padding-right 140px
+        text-align right
+        color $primary-color
+
+      &:nth-child(2n)
+        margin-bottom 15px
+        padding-left 210px
+
+.consume
+  &-dropdown
+    padding-left 12px
+    font-size $font-size-sm
+    cursor pointer
+
+  &-radio-group
+    position relative
+    left 50%
+    top -46px
+    width 224px
+    transform translateX(-50%)
+
+    .ant-radio-button-wrapper
+      width 50%
+      text-align center
+
+  &-echart
+    margin-top -32px
