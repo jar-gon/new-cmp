@@ -1,8 +1,83 @@
 Document-Title 首页
 
 SiteLayout
-  ReactEcharts(ref=this.mapEchartRef option=optionsMap)
-  .card-dashboard-maptool
-    Icon(type="zoom-in" title="放大" onClick=(() => changeMapZoom(true)))
-    Icon(type="zoom-out" title="缩小" onClick=(() => changeMapZoom()))
-    Icon(type="redo" title="还原" onClick=resetMapZoom)
+  .index
+    Card.card-common(title="账号汇总")
+      .index-endpoint
+        .index-endpoint-item.index-endpoint-item-header
+          .index-endpoint-item-cell1 账号别名
+          .index-endpoint-item-cell2 账号类型
+          .index-endpoint-item-cell3 本月消费
+          .index-endpoint-item-cell4 上月消费
+        Spin(spinning=!state.endpoints)
+          if state.endpointLen
+            Carousel(slidesToShow=state.endpointLen slidesToScroll=state.endpointLen vertical verticalSwiping)
+              each endpoint in state.endpoints
+                .index-endpoint-item(key=endpoint.id)
+                  .index-endpoint-item-cell1
+                    ConvertCloudIcon(cloud=endpoint.cloud)
+                    = endpoint.name
+                  .index-endpoint-item-cell2
+                    ConvertCloudType(cloud=endpoint.cloud type=endpoint.type)
+                  .index-endpoint-item-cell3 #{ endpoint.currency } #{ formatCurrency(endpoint.current_month) }
+                  .index-endpoint-item-cell4 #{ endpoint.currency } #{ formatCurrency(endpoint.last_month) }
+          else
+            Empty(image=Empty.PRESENTED_IMAGE_SIMPLE)
+
+
+    Card.card-common(title="消费")
+      Card:extra
+        | 截止日：#{ _get(state.summary.end) }
+      if state.summary
+        .index-summary
+          .index-summary-item 本月 ¥
+            b= formatCurrency(state.summary.current_month)
+            Tag(color="red")
+              Font10 #{ state.summary.month_ratio }%
+                Icon.margin-left_8(type="arrow-up")
+          .index-summary-item 上月 ¥
+            b= formatCurrency(state.summary.last_month)
+          .index-summary-item 本年 ¥
+            b= formatCurrency(state.summary.current_year)
+            Tag(color="lime")
+              Font10 #{ state.summary.year_ratio }%
+                Icon.margin-left_8(type="arrow-down")
+          .index-summary-item 上年 ¥
+            b= formatCurrency(state.summary.last_year)
+
+  .index
+    Card.card-common(title="TOP 10 成本中心消费")
+      Card:extra
+        | 截止日：#{ _get(state.summary.end) }
+      Spin(spinning=!state.costConsume)
+        if state.costConsume && state.costConsume.length
+          ReactEcharts.index-pie(ref=this.costPieEchartRef option=optionsPie style={ height: '220px' })
+        else
+          Empty(image=Empty.PRESENTED_IMAGE_SIMPLE)
+
+    Card.card-common(title="TOP 10 产品消费")
+      Card:extra
+        | 截止日：#{ _get(state.summary.end) }
+      Spin(spinning=!state.productConsume)
+        if state.productConsume && state.productConsume.length
+          ReactEcharts.index-pie(ref=this.productPieEchartRef option=optionsPie style={ height: '220px' })
+        else
+          Empty(image=Empty.PRESENTED_IMAGE_SIMPLE)
+
+  Card.card-common.consume(title="账号消费趋势")
+    Card:extra
+      Dropdown.consume-dropdown(trigger=["click"])
+        span= state.consumeTypeName
+          Icon.margin-left_8(type="down")
+        Dropdown:overlay
+          Menu
+            each type in CONSUME_COST
+              Menu-Item(key=type.value value=type.value onClick=typeChange)= type.label
+    Radio-Group.consume-radio-group(value=state.consumeDate onChange=dateChange)
+      each date in CONSUME_DATE
+        Radio-Button(key=date.value value=date.value)= date.label
+    Spin(spinning=!state.endpointConsume)
+      if state.endpointConsume && state.endpointConsume.length
+        ReactEcharts.consume-echart(ref=this.barEchartRef option=optionsBar)
+      else
+        Empty(image=Empty.PRESENTED_IMAGE_SIMPLE)

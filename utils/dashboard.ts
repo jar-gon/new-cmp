@@ -1,3 +1,80 @@
+export const CONSUME_COST = [
+  { label: '支出', value: 'zc' },
+  { label: '分摊', value: 'ft' }
+]
+
+export const CONSUME_DATE = [
+  { label: '月', value: 'month' },
+  { label: '日', value: 'day' }
+]
+
+export const optionsColor = [
+  '#e8684a', '#f7931e', '#5b8ff9', '#ff99c3', '#269a99', '#ff9d4d', '#6c5496', '#6dc8ec', '#f6bd16', '#4a6494', '#5ad8a6', '#5d7092',
+  '#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'
+]
+
+export const optionsBar = {
+  color: optionsColor,
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: { // 坐标轴指示器，坐标轴触发有效
+      type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+    }
+  },
+  legend: {
+    bottom: '8',
+    itemWidth: 12,
+    itemHeight: 6,
+    formatter: name => {
+      return name
+    },
+    textStyle: {
+      color: '#525f7f',
+      rich: { }
+    },
+    data: [ ]
+  },
+  grid: {
+    top: '20',
+    left: 0,
+    right: 0,
+    bottom: '40',
+    containLabel: true
+  },
+  xAxis: {
+    type: 'category',
+    axisLine: {
+      show: false
+    },
+    axisTick: {
+      show: false
+    },
+    axisLabel: {
+      color: '#525f7f'
+    },
+    data: [ ]
+  },
+  yAxis: {
+    type: 'value',
+    axisLine: {
+      show: false
+    },
+    axisTick: {
+      show: false
+    },
+    axisLabel: {
+      color: '#525f7f',
+      formatter: '￥ {value}'
+    },
+    splitLine: {
+      lineStyle: {
+        color: '#e9e9e9'
+      }
+    }
+  },
+  series: [ ]
+}
+
 export const optionsMap = {
   tooltip: {
     trigger: 'item',
@@ -85,6 +162,48 @@ export const optionsMap = {
         }
       },
       zlevel: 1
+    }
+  ]
+}
+
+export const optionsPie = {
+  color: optionsColor,
+  tooltip: {
+    trigger: 'item',
+    formatter: '{a} <br/>{b} : ￥{c} ({d}%)'
+  },
+  legend: {
+    orient: 'vertical',
+    top: 'middle',
+    right: 'right',
+    itemWidth: 12,
+    itemHeight: 8,
+    formatter: name => {
+      return name
+    },
+    textStyle: {
+      color: '#525f7f'
+    },
+    icon: 'circle',
+    data: [ ]
+  },
+  series: [
+    {
+      type: 'pie',
+      label: {
+        show: false
+      },
+      radius: '86%',
+      center: [ '24%', '50%' ],
+      // color: optionsColor,
+      data: [ ],
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
     }
   ]
 }
