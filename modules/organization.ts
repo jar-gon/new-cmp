@@ -1,9 +1,11 @@
+import { AccountRole } from '~/models/account'
 import { ModuleMenu, MENU_COLOR } from './common'
 
 export default {
   label: '组织管理',
   icon: 'yq-organization',
   path: '/organization',
+  role: AccountRole.Admin,
   color: MENU_COLOR.organization,
   menus: [
     {

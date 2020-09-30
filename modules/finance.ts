@@ -1,9 +1,11 @@
+import { AccountRole } from '~/models/account'
 import { ModuleMenu, MENU_COLOR } from './common'
 
 export default {
   label: '财务管理',
   icon: 'property-safety',
   path: '/finance',
+  role: AccountRole.Admin,
   color: MENU_COLOR.finance,
   menus: [
     {

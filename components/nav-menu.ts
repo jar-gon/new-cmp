@@ -12,7 +12,7 @@ class NavMenu extends Component {
 
   constructor(props) {
     super(props)
-    this.menus = this.filterMenu(moduleMenus)
+    this.menus = this.disabledMenu(moduleMenus)
     this.triggerUpdate = this.triggerUpdate.bind(this)
   }
 
@@ -24,14 +24,12 @@ class NavMenu extends Component {
     router.events.off('routeChangeComplete', this.triggerUpdate)
   }
 
-  filterMenu(menus: ModuleMenu[]): ModuleMenu[] {
-    return menus.filter(menu => {
-      const accessible = isMenuAccessible(menu)
-      if (accessible && menu.menus) {
-        menu.menus = this.filterMenu(menu.menus)
-        return menu.menus.length
+  disabledMenu(menus: ModuleMenu[]): ModuleMenu[] {
+    return menus.map(menu => {
+      if (!menu.disabled && !isMenuAccessible(menu)) {
+        menu.disabled = true
       }
-      return accessible
+      return menu
     })
   }
 

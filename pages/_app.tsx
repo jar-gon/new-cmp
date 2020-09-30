@@ -14,7 +14,7 @@ import { serverRuntimeConfig } from '~/utils/config'
 import { getCurrentMenu, isMenuAccessible } from '~/modules/index'
 
 import AccountApi from '~/apis/account'
-// import { AccountRole } from '~/models/account'
+import { AccountRole } from '~/models/account'
 
 import '~/styles/index.less'
 import '~/styles/index.styl'
@@ -80,9 +80,11 @@ class App extends NextApp<AppProps> {
   }
 
   checkRoute(): void {
+    const { account } = this.props.store.getState()
     const menu = getCurrentMenu()
     if (menu && !isMenuAccessible(menu)) {
-      window.location.replace('/')
+      const url = account.role === AccountRole.Admin ? '/' : '/cloud'
+      window.location.replace(url)
     }
   }
 
