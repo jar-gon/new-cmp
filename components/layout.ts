@@ -6,6 +6,7 @@ import template from './layout.pug'
 
 interface LayoutProps {
   footer: boolean
+  nav: boolean
 }
 
 class Layout extends Component<LayoutProps> {

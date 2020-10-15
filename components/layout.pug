@@ -4,7 +4,8 @@ Layout
 
   Layout-Content
     .layout--wrapper
-      NavMenu
+      if !props.nav
+        NavMenu
       = props.children
 
   Layout-Footer

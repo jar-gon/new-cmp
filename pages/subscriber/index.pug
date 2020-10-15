@@ -1,0 +1,23 @@
+Document-Title 订阅管理
+
+SiteLayout(nav)
+  .layout--title 订阅管理
+  Card.card-common(title="订阅列表")
+    .table-list
+      TableX(rowKey="id")
+        Table-Column(title="订阅ID" dataIndex="id")
+          Table-Column:render(as=value)
+            ShortName-Id(value=value)
+        //- Table-Column(title="订阅版本" dataIndex="version")
+        //-   Table-Column:render(as=value)
+        //-     ShortName-Id(value=value)
+        //- Table-Column(title="订阅时长" dataIndex="username")
+        //- Table-Column(title="订阅价格" dataIndex="mobile")
+        //- Table-Column(title="付费方式" dataIndex="status")
+        //- Table-Column(title="订阅时间" dataIndex="login_at")
+        //-   Table-Column:render(as=value)= formatDate(value)
+        //- Table-Column(title="到期时间" dataIndex="created_at")
+        //-   Table-Column:render(as=value)= formatDate(value)
+        //- Table-Column(title="操作" key="action")
+        //-   Table-Column:render(as=(value, subscriber))
+        //-     Link(href=`/renew/?_id=${ subscriber.id }`): Button(size="small") 续费
