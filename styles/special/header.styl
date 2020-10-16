@@ -31,17 +31,53 @@
 
   &--dropdown
     top $layout-header-height !important
+    z-index 990
+    padding 20px 20px 0
+    width 200px
+    font-size $font-size-sm
+    text-align center
+    background $white
+    @extend .box-style
 
-    .ant-dropdown-menu
-      padding 0
-      border-radius 0 0 $border-radius-base $border-radius-base
-      box-shadow 0 1px 8px 0 $black-20
+    &-menu
+      @extend .flex-between
+      flex-wrap wrap
 
       &-item
-        padding 9px 20px
-        min-width 150px
-        font-size $font-size-base
+        margin-bottom 10px
+        width 76px
+        cursor pointer
 
-        a
-          margin 0
-          padding 0
+        &-icon
+          display inline-flex
+          width 45px
+          height 45px
+          font-size 20px
+          border-radius 45px
+          @extend .flex-center
+
+          &_blue
+            color #6182ff
+            background rgba(#6182ff, .1)
+
+          &_green
+            color #15b058
+            background rgba(#15b058, .1)
+
+          &_yellow
+            color #f7931e
+            background rgba(#f7931e, .1)
+
+        &-label
+          line-height 34px
+          color $text-color
+
+    &-footer
+      display block
+      padding 10px 0
+      line-height $line-height
+      color $text-color
+      border-top 1px solid $border-color-split
+
+      &:hover
+        color $text-color

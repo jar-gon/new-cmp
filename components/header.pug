@@ -8,13 +8,21 @@
             span= props.account.username
             Icon(type="down")
           Dropdown:overlay
-            Menu
-              Menu-Item
-                a(onClick=(() => updateAccount(props.account))) 修改信息
-              Menu-Item
-                a(onClick=(() => updatePassword(props.account))) 修改密码
-              Menu-Item
-                Link(href="/logout"): a 退出
+            Fragment
+              .header--dropdown-menu
+                .header--dropdown-menu-item(onClick=(() => updateAccount(props.account)))
+                  .header--dropdown-menu-item-icon.header--dropdown-menu-item-icon_blue
+                    Icon(type="yq-info")
+                  .header--dropdown-menu-item-label 修改信息
+                .header--dropdown-menu-item(onClick=(() => updatePassword(props.account)))
+                  .header--dropdown-menu-item-icon.header--dropdown-menu-item-icon_green
+                    Icon(type="yq-lock")
+                  .header--dropdown-menu-item-label 修改密码
+                Link(href="/subscriber"): a.header--dropdown-menu-item
+                  .header--dropdown-menu-item-icon.header--dropdown-menu-item-icon_yellow
+                    Icon(type="yq-subscribe")
+                  .header--dropdown-menu-item-label 订阅管理
+              Link(href="/logout"): a.header--dropdown-footer 退出登录
 
   a(href="/")
     img.logo(src=props.isvInfo.logo)
