@@ -1,0 +1,60 @@
+Document-Title 订阅付费
+
+SiteLayout(nav)
+  .layout--title 订阅付费
+  Card.card-common.renew
+    .renew-item
+      .renew-item-label 订阅版本
+      .renew-item-control
+        Radio-Group.yq-radio-group.yq-radio-group-lg
+          Radio-Button
+            .renew-item-control-title 标准版
+            .renew-item-control-desc 适用于企业的云成本与费用管理
+        a.renew--version(href="http://www.cmplite.cn/version.html" target="_blank") 版本对比
+    .renew-item
+      .renew-item-label 购买时长
+      .renew-item-control
+        Radio-Group.yq-radio-group.yq-radio-group-lg(value=state.selectedDuration onChange=selectDuration)
+          each duration in state.durations
+            Radio-Button(key=duration.id value=duration)
+              .flex-between-center
+                .renew-item-control-title= duration.name
+                .renew-item-control-price ¥ #{ duration.price }
+    .renew-item
+      .renew-item-label 支付方式
+      .renew-item-control
+        Radio-Group.yq-radio-group.yq-radio-group-img(value=state.selectedGateway onChange=selectGateway)
+          each gateway in state.gateways
+            Radio-Button(key=gateway.id value=gateway)
+              ConvertPayGetwary(type=gateway.type)
+    .renew-item
+      .renew-item-label 订单汇总
+      .renew-item-control
+        .renew-summary
+          .renew-summary-item
+            .renew-summary-item-label 所选方案
+            .renew-summary-item-value 标准版
+          .renew-summary-item
+            .renew-summary-item-label 购买时长
+            .renew-summary-item-value= _get(state.selectedDuration.name)
+          .renew-summary-item
+            .renew-summary-item-label 到期时间
+            .renew-summary-item-value= _get(state.expire)
+          .renew-summary-item
+            .renew-summary-item-label 支付方式
+            .renew-summary-item-value= _get(state.selectedGateway.name)
+          .renew-summary-item
+            .renew-summary-item-label 购买时长金额
+            .renew-summary-item-value ¥ #{ _get(state.selectedDuration.price) }
+    .renew-item
+      Button.renew-btn(size="large" type="primary" onClick=doRenew) 使用#{ _get(state.selectedGateway.name) }支付 #{ _get(state.selectedDuration.price) } 元
+
+Template(ref=this.qrcodeModal)
+  .modal-qrcode-title #{ _get(state.selectedGateway.name) }支付
+  .modal-qrcode-text 扫码支付#{ _get(state.selectedDuration.price) }元
+  Spin(spinning=!state.payUrl)
+    .modal-qrcode-wrapper
+      if state.payUrl
+        QRCode(value=state.payUrl size=150)
+      if state.refreshTime
+        Font10 #{ state.refreshTime }s 后自动刷新二维码

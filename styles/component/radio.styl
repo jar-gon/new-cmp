@@ -20,6 +20,23 @@
         &:hover
           color $primary-color
 
+  &-lg
+    .ant-radio
+      &-button-wrapper
+        display block
+        padding 15px 19px
+        min-width 470px
+        text-align left
+        height auto
+        border-color $border-color-split
+        box-shadow $box-shadow
+
+        & + .ant-radio-button-wrapper
+          margin-top 20px
+
+        &-checked:not(.ant-radio-button-wrapper-disabled)
+          box-shadow $box-shadow !important
+
   &-img
 
     .ant-radio
