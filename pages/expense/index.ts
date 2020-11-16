@@ -2,13 +2,14 @@ import { connect } from 'react-redux/es'
 import { Component } from '@billyunq/react-utils/react'
 import { FormState, SelectAddition } from '@billyunq/react-utils/simple-form'
 import { Dictionary } from '@billypon/ts-types'
-import Template from '@billypon/react-template'
+// import Template from '@billypon/react-template'
 import { autobind } from '@billypon/react-decorator'
 
 import { mapState, ConnectedProps } from '~/utils/redux'
-import { extendParams, extendDateRangeParam } from '~/utils/common'
+import { extendParams } from '~/utils/common'
+// import { extendParams, extendDateRangeParam } from '~/utils/common'
 import { CONSUME_COST, CONSUME_DATE, CONSUME_DIMENSION, CONSUME_PAY } from '~/utils/dashboard'
-import Notification from '~/utils/notification'
+// import Notification from '~/utils/notification'
 
 import { ExpenseParams } from '~/models/expense'
 
@@ -20,8 +21,8 @@ import FilterForm from '~/components/filter-form'
 import template from './index.pug'
 
 interface ExpenseListState {
-  rangeFormat: string
-  rangeMode: string[]
+  // rangeFormat: string
+  // rangeMode: string[]
   states: Dictionary<FormState>
 }
 
@@ -32,7 +33,7 @@ class ExpenseList extends Component<ConnectedProps, ExpenseListState> {
   expenseBar: ExpenseBarRef
   filterForm: FilterForm
 
-  datetimeTpl: Template
+  // datetimeTpl: Template
 
   getInitialState() {
     const states: Dictionary<FormState> = {
@@ -67,79 +68,79 @@ class ExpenseList extends Component<ConnectedProps, ExpenseListState> {
         addition: {
           data: CONSUME_DATE.map(x => ({ label: x.label, value: x.value }))
         } as SelectAddition,
-        onChange: (value) => {
-          this.filterForm.form.setFieldsValue({ 'datetime': [] })
-          if (value === 'month') {
-            this.setState({
-              rangeFormat: 'YYYY-MM',
-              rangeMode: [ value, value ]
-            })
-          } else {
-            this.setState({
-              rangeFormat: 'YYYY-MM-DD',
-              rangeMode: [ 'date', 'date' ]
-            })
-          }
-        }
+        // onChange: (value) => {
+        //   this.filterForm.form.setFieldsValue({ 'datetime': [] })
+        //   if (value === 'month') {
+        //     this.setState({
+        //       rangeFormat: 'YYYY-MM',
+        //       rangeMode: [ value, value ]
+        //     })
+        //   } else {
+        //     this.setState({
+        //       rangeFormat: 'YYYY-MM-DD',
+        //       rangeMode: [ 'date', 'date' ]
+        //     })
+        //   }
+        // }
       },
-      datetime: {
-        label: '',
-        render: {
-          control: () => this.datetimeTpl ? this.datetimeTpl.template : '',
-        },
-      },
+      // datetime: {
+      //   label: '',
+      //   render: {
+      //     control: () => this.datetimeTpl ? this.datetimeTpl.template : '',
+      //   },
+      // },
     }
     return {
       states,
-      rangeFormat: 'YYYY-MM',
-      rangeMode: [ 'month', 'month' ],
+      // rangeFormat: 'YYYY-MM',
+      // rangeMode: [ 'month', 'month' ],
     }
   }
 
   componentDidMount() {
     this.expenseBar = new ExpenseBarRef()
-    this.datetimeTpl.syncState(this, () => [ this.state.rangeMode ])
+    // this.datetimeTpl.syncState(this, () => [ this.state.rangeMode ])
     this.filterForm.form.submit()
   }
 
-  lockDate(params: ExpenseParams): boolean {
-    const { mode, start, end } = params
-    if (start && end) {
-      const differ = new Date(end).getTime() - new Date(start).getTime()
-      const compare = (mode === 'month' ? 338 : 30) * 24 * 60 * 60 * 1000
-      const message = mode === 'month' ? '月维度分析所选时间范围不能超过12个月' : '日维度分析所选时间范围不能超过31天'
-      if (differ > compare) {
-        Notification.warning(message)
-        return true
-      }
-    }
-    return false
-  }
+  // lockDate(params: ExpenseParams): boolean {
+  //   const { mode, start, end } = params
+  //   if (start && end) {
+  //     const differ = new Date(end).getTime() - new Date(start).getTime()
+  //     const compare = (mode === 'month' ? 338 : 30) * 24 * 60 * 60 * 1000
+  //     const message = mode === 'month' ? '月维度分析所选时间范围不能超过12个月' : '日维度分析所选时间范围不能超过31天'
+  //     if (differ > compare) {
+  //       Notification.warning(message)
+  //       return true
+  //     }
+  //   }
+  //   return false
+  // }
 
-  @autobind()
-  handlePanelChange(value, mode): void {
-    const form = this.filterForm.form
-    if (form.getFieldValue('mode') === 'month') {
-      form.setFieldsValue({ 'datetime': value })
-      this.setState({
-        rangeMode: [ mode[0] === 'date' ? 'month' : mode[0], mode[1] === 'date' ? 'month' : mode[1] ]
-      })
-    } else {
-      this.setState({
-        rangeMode: mode
-      })
-    }
-  }
+  // @autobind()
+  // handlePanelChange(value, mode): void {
+  //   const form = this.filterForm.form
+  //   if (form.getFieldValue('mode') === 'month') {
+  //     form.setFieldsValue({ 'datetime': value })
+  //     this.setState({
+  //       rangeMode: [ mode[0] === 'date' ? 'month' : mode[0], mode[1] === 'date' ? 'month' : mode[1] ]
+  //     })
+  //   } else {
+  //     this.setState({
+  //       rangeMode: mode
+  //     })
+  //   }
+  // }
 
   @autobind()
   protected onFilter(values: Dictionary): void {
     const params = { } as ExpenseParams
     extendParams(params, values)
-    extendDateRangeParam(params, values.datetime)
+    // extendDateRangeParam(params, values.datetime)
     this.params = params
-    if (this.lockDate(params)) {
-      return
-    }
+    // if (this.lockDate(params)) {
+    //   return
+    // }
     this.triggerUpdate().subscribe(() => {
       this.expenseBar.loadItems()
     })

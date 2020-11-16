@@ -10,7 +10,7 @@ export const CONSUME_DATE = [
 
 export const CONSUME_DIMENSION = [
   { label: '账号', value: 'endpoint' },
-  { label: '云厂商', value: 'provider' },
+  // { label: '云厂商', value: 'provider' },
   { label: '产品', value: 'product' },
   { label: '区域', value: 'region' },
   { label: '成本中心', value: 'cost' }

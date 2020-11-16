@@ -2,10 +2,10 @@ Document-Title 费用分析
 
 SiteLayout
   Card.card-common(title="费用分析")
-    Alert.margin-bottom_20(message="月维度分析所选时间范围不能超过12个月；日维度分析所选时间范围不能超过31天。" showIcon)
+    //- Alert.margin-bottom_20(message="月维度分析所选时间范围不能超过12个月；日维度分析所选时间范围不能超过31天。" showIcon)
     FilterForm(ref=this.filterForm states=state.states onSubmit=onFilter hideClearBtn)
     if expenseBar
       ExpenseBar(_ref=expenseBar params=params)
 
-Template(ref=this.datetimeTpl)
+//- Template(ref=this.datetimeTpl)
   DatePicker-RangePicker.expense-date-picker(format=state.rangeFormat mode=state.rangeMode onPanelChange=handlePanelChange)
